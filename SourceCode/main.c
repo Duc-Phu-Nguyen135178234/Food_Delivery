@@ -10,5 +10,7 @@ int main(void)
 
 	printMap(&routeMap, 1, 1);
 
+	//TEST
+
 	return 0;
 }
