@@ -7,10 +7,20 @@
 #define SZ_MID 0.5 
 #define SZ_MAX 1 
 
-#define destination 
+//TRUCK
+#define MAX_CARGO 1200 //kg
+#define BOX_SPACE 50 //cubic meters
+
+
+#define destination 3
 
 struct PackageInf {
 	double m_weight;  // valid 1-1000kg
 	double m_boxSize; // valid range in cubic meter: 0.25, 0.5, 1.
 	char* destination;
+};
+
+struct Truck {
+	double m_totalSpace; //cubic meters. Cannot exceed BOX_SPACE
+	double m_totalWeight; // KG. Cannot exceed MAX_CARGO
 };
