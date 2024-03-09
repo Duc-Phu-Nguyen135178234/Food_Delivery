@@ -21,8 +21,8 @@ struct PackageInf {
 };
 
 struct Truck {
-	int num_packages;
-	PackageInf* packages;
+	int num_packages;     //Package Count
+	PackageInf* packages; // Package List
 	double m_totalSpace; //cubic meters. Cannot exceed BOX_SPACE
 	double m_totalWeight; // KG. Cannot exceed MAX_CARGO
 	char* route;          // assigned route
