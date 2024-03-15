@@ -1,6 +1,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include "mapping.h"
+#include "data.h"
 
 int main(void)
 {
