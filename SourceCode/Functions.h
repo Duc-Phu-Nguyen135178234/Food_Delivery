@@ -12,7 +12,7 @@
 //Create function prototype Boxsize
 
 //create function prototype Validdestination
-int Validdestination(const struct Map* routeMap, char* destination)
+int Validdestination(const struct Map* routeMap, char* destination);
 // get char destination[] with size of 4 
 // check if correct format 8A 12A and map destination on routeMap return 1
 //if Destination out size the routeMap return 0

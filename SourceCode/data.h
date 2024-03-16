@@ -17,13 +17,5 @@
 struct PackageInf {
 	double m_weight;  // valid 1-1000kg
 	double m_boxSize; // valid range in cubic meter: 0.25, 0.5, 1.
-	char* destination;
-};
-
-struct Truck {
-	int num_packages;     //Package Count
-	PackageInf* packages; // Package List
-	double m_totalSpace; //cubic meters. Cannot exceed BOX_SPACE
-	double m_totalWeight; // KG. Cannot exceed MAX_CARGO
-	char* route;          // assigned route
+	char* m_destination;
 };
