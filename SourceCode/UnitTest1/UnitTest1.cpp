@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "CppUnitTest.h"
+#include "functions_r.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
