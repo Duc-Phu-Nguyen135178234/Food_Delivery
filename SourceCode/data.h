@@ -7,11 +7,6 @@
 #define SZ_MID 0.5 
 #define SZ_MAX 1 
 
-//TRUCK
-#define MAX_CARGO 1200 //kg
-#define BOX_SPACE 50 //cubic meters
-
-
 #define destination 3
 
 struct PackageInf {

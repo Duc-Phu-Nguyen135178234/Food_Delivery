@@ -1,5 +1,10 @@
 #pragma once
 
+
+//TRUCK
+#define MAX_CARGO 1200 //kg
+#define BOX_SPACE 50 //cubic meters
+
 #include "data.h"
 
 struct Truck {
