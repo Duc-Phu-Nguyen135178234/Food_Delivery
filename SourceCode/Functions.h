@@ -21,6 +21,6 @@ int Validdestination(const struct Map* routeMap, char* destination);
 //if Destination out size the routeMap return 0
 
 
-
 //create function prototype check space of truck
+
 #endif //SENECA_DELIVERY_H
