@@ -10,6 +10,9 @@ void getInput(struct packageInf* p);
 */
 
 //Create function prototype check Packageweight
+int checkWeight(struct Truck* truck, struct PackageInf* package);
+//check if the weight of a package is within the permissible range for a truck
+// it is considering the maximum cargo limit defined
 
 
 //Create function prototype Boxsize
