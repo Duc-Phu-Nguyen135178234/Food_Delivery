@@ -22,5 +22,6 @@ int Validdestination(const struct Map* routeMap, char* destination);
 
 
 //create function prototype check space of truck
+int checkSpaceOfTruck(int length, int width, int height, int availableLength, int availableWidth, int availableHeight);
 
 #endif //SENECA_DELIVERY_H
