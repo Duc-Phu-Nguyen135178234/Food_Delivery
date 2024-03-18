@@ -29,13 +29,13 @@
     <ClInclude Include="data.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="mapping.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="truck.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Functions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="mapping.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
