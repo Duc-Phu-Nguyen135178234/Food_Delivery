@@ -3,24 +3,24 @@
 #include "Functions.h"
 #include "data.h"
 
-void getInput(struct Truck* truck, struct packageInf* package, const struct Map* routeMap) {
+void getInput(const struct Map* routeMap) {
 	int valid = 0;
 	int weight = 0;
 	double boxSize = 0.0;
 	char dest[BUFFER];
 	do {
-		printf("Enter shipment weight, box size and destination (0 0 x to stop):");
+		printf("Enter shipment weight, box size and destination (0 0 x to stop): ");
 		scanf("%d %lf %s", &weight, &boxSize, &dest);
 		
 		//We call check functions here? checkWeight() needs int weight parameter
 		//If all checks pass then we exit loop and proceed with the calculations
 		//We might want to consider some other functions since we are just checking input so far.
 
-		Validdestination(routeMap, dest);
+		//Validdestination(routeMap, dest);
 		
-		checkWeight(truck, package);
+		//checkWeight(truck, package);
 
-		checkBoxSize(boxSize);
+		//checkBoxSize(boxSize);
 
 		//checkSpaceOfTruck()          Send truck pointer, too many parameters.
 		
