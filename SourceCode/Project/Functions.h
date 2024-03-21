@@ -1,6 +1,8 @@
 
 #ifndef SENECA_DELIVERY_H
 #define SENECA_DELIVERY_H
+
+#define BUFFER 10
 //header file for 6 function
 
 //Create function prototype getInput
