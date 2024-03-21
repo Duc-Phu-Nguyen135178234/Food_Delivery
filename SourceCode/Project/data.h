@@ -1,6 +1,6 @@
 //Header file 
 #define LOW_WEIGHT 1 //KG
-#define HIGH_WEIGHT 1000 //kg
+#define HIGH_WEIGHT 1200 //kg
 
 //PACKAGE SIZES. Cubic Meters.
 #define SZ_MIN 0.25
