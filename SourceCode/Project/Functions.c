@@ -22,7 +22,7 @@ void getInput(const struct Map* routeMap) {
 
 		//checkBoxSize(boxSize);
 
-		//checkSpaceOfTruck()          Send truck pointer, too many parameters.
+		//checkSpaceOfTruck()         Send truck pointer, too many parameters.
 		
 		/*
 		if (weight < 1 || weight > 1200) {
