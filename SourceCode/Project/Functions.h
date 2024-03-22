@@ -6,7 +6,7 @@
 //header file for 6 function
 
 //Create function prototype getInput
-void getInput(struct packageInf*, struct Truck* truck, const struct Map* routeMap);
+void getInput(const struct Map* routeMap);
 /*Prompt the user for input and store by address to a packageInf* object
 * Include Validation for user input before storing to data structure
 */
@@ -34,7 +34,7 @@ acceptable box sizes. The function then compares the ' shipmentSize ' parameter 
 size is valid or “ invalid” and returns 0(false), if it does not match.*/
 
 //create function prototype Validdestination
-int Validdestination(const struct Map* routeMap, char* destination);
+int Validdestination(const struct Map* routeMap, char* dest);
 // get char destination[]  
 // check if correct format 8A 12A and map destination on routeMap return 1
 //if Destination out size the routeMap return 0

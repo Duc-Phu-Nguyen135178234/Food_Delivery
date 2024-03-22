@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include "mapping.h"
 #include "data.h"
+#include "Functions.h"
 
 int main(void)
 {
@@ -11,6 +12,7 @@ int main(void)
 
 	printMap(&routeMap, 1, 1);
 
+	getInput(&routeMap);
 
 	return 0;
 }
