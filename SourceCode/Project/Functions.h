@@ -5,7 +5,7 @@
 #define BUFFER 10
 //header file for 6 function
 
-//Create function prototype getInput.
+//Create function prototype getInput
 void getInput(const struct Map* routeMap);
 /*Prompt the user for input and store by address to a packageInf* object
 * Include Validation for user input before storing to data structure
