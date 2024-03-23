@@ -1,6 +1,7 @@
 #define _CRT_SECURE_NO_WARNINGS
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
 #include "Functions.h"
 #include "data.h"
 
@@ -43,19 +44,19 @@ int isValidColumn(char column) {
 // check if correct format 8A 12A and map destination on routeMap return 1
 //if Destination out size the routeMap return 0
 
-int Validdestination(const struct Map* routeMap, const char* destination) {
-    int len = strlen(destination);
+int Validdestination(const struct Map* routeMap, const char* dest) {
+    int len = strlen(dest);
     int row; char col;
     
     if (len<=2){
     	// Invalid destination if the first character is not a digit
-	    if (!isdigit(destination[0])) return 0; 
+	    if (!isdigit(dest[0])) return 0; 
 	    
 	    // Convert the row number part of the destination to an integer
-	    row = atoi(destination);
+	    row = atoi(dest);
 	    
 	     // Extract the column letter part of the destination
-	    col = toupper(destination[len - 1]);
+	    col = toupper(dest[len - 1]);
 	    
 	    if (row < 1 || row > MAP_COLS) return 0; // out range
 	    
