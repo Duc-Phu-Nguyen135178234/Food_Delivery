@@ -2,6 +2,8 @@
 #ifndef SENECA_DELIVERY_H
 #define SENECA_DELIVERY_H
 
+
+#include "mapping.h"
 #define BUFFER 10
 //header file for 6 function
 
