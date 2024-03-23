@@ -28,8 +28,8 @@ namespace Whitebox {
 
 		TEST_METHOD(validdestination_1A)
 		{
-			struct Map routeMap; // Create a dummy map for testing
-			// Initialize routeMap with appropriate values
+			struct Map routeMap; 
+		
 
 			char dest[] = "1A";
 			Assert::IsTrue(Validdestination(&routeMap, dest));
@@ -37,7 +37,7 @@ namespace Whitebox {
 
 		TEST_METHOD(validdestination_20Z)
 		{
-			struct Map routeMap; // Create a dummy map for testing
+			struct Map routeMap; 
 			// Initialize routeMap with appropriate values
 
 			char dest[] = "20Z";
@@ -46,7 +46,7 @@ namespace Whitebox {
 
 		TEST_METHOD(validdestination_2B)
 		{
-			struct Map routeMap; // Create a dummy map for testing
+			struct Map routeMap; 
 			// Initialize routeMap with appropriate values
 
 			char dest[] = "2B";
@@ -55,7 +55,7 @@ namespace Whitebox {
 
 		TEST_METHOD(validdestination_23Y)
 		{
-			struct Map routeMap; // Create a dummy map for testing
+			struct Map routeMap; 
 			// Initialize routeMap with appropriate values
 
 			char dest[] = "23Y";
