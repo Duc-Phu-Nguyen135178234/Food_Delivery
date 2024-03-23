@@ -21,45 +21,38 @@ namespace UnitTest1
 	};
 }
 
-namespace Whitebox {
-	TEST_CLASS(validdestination)
-	{
-	public:
+TEST_CLASS(validdestination)
+{
+public:
+    struct Map routeMap;
 
-		TEST_METHOD(validdestination_1A)
-		{
-			struct Map routeMap; 
-		
+    // Initialize the map before running any test
+    TEST_METHOD_INITIALIZE(setup) {
+        routeMap = populateMap();
+    }
 
-			char dest[] = "1A";
-			Assert::IsTrue(Validdestination(&routeMap, dest));
-		}
+    TEST_METHOD(validdestination_1A)
+    {
+        char dest[] = "1A";
+        Assert::IsTrue(Validdestination(&routeMap, dest));
+    }
 
-		TEST_METHOD(validdestination_20Z)
-		{
-			struct Map routeMap; 
-			// Initialize routeMap with appropriate values
+    TEST_METHOD(validdestination_20Z)
+    {
+        char dest[] = "20Z";
+        Assert::IsFalse(Validdestination(&routeMap, dest));
+    }
 
-			char dest[] = "20Z";
-			Assert::IsFalse(Validdestination(&routeMap, dest));
-		}
+    TEST_METHOD(validdestination_2B)
+    {
+        char dest[] = "2B";
+        Assert::IsTrue(Validdestination(&routeMap, dest));
+    }
 
-		TEST_METHOD(validdestination_2B)
-		{
-			struct Map routeMap; 
-			// Initialize routeMap with appropriate values
+    TEST_METHOD(validdestination_23Y)
+    {
+        char dest[] = "23Y";
+        Assert::IsFalse(Validdestination(&routeMap, dest));
+    }
+};
 
-			char dest[] = "2B";
-			Assert::IsTrue(Validdestination(&routeMap, dest));
-		}
-
-		TEST_METHOD(validdestination_23Y)
-		{
-			struct Map routeMap; 
-			// Initialize routeMap with appropriate values
-
-			char dest[] = "23Y";
-			Assert::IsFalse(Validdestination(&routeMap, dest));
-		}
-	};
-}
