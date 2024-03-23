@@ -20,3 +20,46 @@ namespace UnitTest1
 		}
 	};
 }
+
+namespace Whitebox {
+	TEST_CLASS(validdestination)
+	{
+	public:
+
+		TEST_METHOD(validdestination_1A)
+		{
+			struct Map routeMap; // Create a dummy map for testing
+			// Initialize routeMap with appropriate values
+
+			char dest[] = "1A";
+			Assert::IsTrue(Validdestination(&routeMap, dest));
+		}
+
+		TEST_METHOD(validdestination_20Z)
+		{
+			struct Map routeMap; // Create a dummy map for testing
+			// Initialize routeMap with appropriate values
+
+			char dest[] = "20Z";
+			Assert::IsFalse(Validdestination(&routeMap, dest));
+		}
+
+		TEST_METHOD(validdestination_2B)
+		{
+			struct Map routeMap; // Create a dummy map for testing
+			// Initialize routeMap with appropriate values
+
+			char dest[] = "2B";
+			Assert::IsTrue(Validdestination(&routeMap, dest));
+		}
+
+		TEST_METHOD(validdestination_23Y)
+		{
+			struct Map routeMap; // Create a dummy map for testing
+			// Initialize routeMap with appropriate values
+
+			char dest[] = "23Y";
+			Assert::IsFalse(Validdestination(&routeMap, dest));
+		}
+	};
+}
