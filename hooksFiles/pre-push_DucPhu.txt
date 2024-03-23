@@ -3,7 +3,7 @@ echo "Starting test runner..."
 test_runner="C:\Program Files\Microsoft Visual 
 Studio\2022\Community\Common7\IDE\CommonExtensions\Microsoft\TestWindow\vstes
 t.console.exe" 
-tests_dll="SimpleVSUnitTest\Debug\UnitTest1.dll" 
+tests_dll="C:\Data\Semeter_2\SFT\Project\Repos\SourceCode\Project\x64\Debug\UnitTest1.dll" 
 failure_string="Failed:"
 testout=`"$test_runner" "$tests_dll"`
 if [[ $testout == *"$failure_string"* ]]; then
