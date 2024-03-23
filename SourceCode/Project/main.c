@@ -11,8 +11,7 @@ int main(void)
 	struct Map routeMap = addRoute(&baseMap, &blueRoute);
 
 	printMap(&routeMap, 1, 1);
-
-	getInput(&routeMap);
+	getInput(&routeMap, NULL);
 
 	return 0;
 }

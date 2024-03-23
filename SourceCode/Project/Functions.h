@@ -8,7 +8,7 @@
 //header file for 6 function
 
 //Create function prototype getInput
-void getInput(const struct Map* routeMap);
+int getInput(const struct Map* routeMap, char* teststr);
 /*Prompt the user for input and store by address to a packageInf* object
 * Include Validation for user input before storing to data structure
 */

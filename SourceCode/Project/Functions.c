@@ -5,46 +5,78 @@
 #include "Functions.h"
 #include "data.h"
 
-void getInput(const struct Map* routeMap) {
+int getInput(const struct Map* routeMap, char* teststr) {
 	int valid = 0;
 	int exit = 0;
 	int weight = 0;
 	double boxSize = 0.0;
 	char dest[BUFFER];
-	do {
-		printf("Enter shipment weight, box size and destination (0 0 x to stop): ");
-		scanf("%d %lf %s", &weight, &boxSize, &dest);
-		dest[strlen(dest)] = '\0';
-		//We call check functions here? checkWeight() needs int weight parameter
-		//If all checks pass then we exit loop and proceed with the calculations
-		//We might want to consider some other functions since we are just checking input so far.
+	if (routeMap != NULL) {
+		if (teststr == NULL) {
 
-		if (weight == 0 && boxSize == 0 && strcmp(dest, "x") == 0) {
-			exit = 1;
-		}
+			do {
+				printf("Enter shipment weight, box size and destination (0 0 x to stop): ");
+				scanf("%d %lf %s", &weight, &boxSize, &dest);
+				dest[strlen(dest)] = '\0';
+				//We call check functions here? checkWeight() needs int weight parameter
+				//If all checks pass then we exit loop and proceed with the calculations
+				//We might want to consider some other functions since we are just checking input so far.
+
+				if (weight == 0 && boxSize == 0 && strcmp(dest, "x") == 0) {
+					exit = 1;
+				}
 
 
-		if (!Validdestination(routeMap, dest) && !exit)
-		{
-			printf("invalid destination\n");
-			valid = 0;
+				if (!Validdestination(routeMap, dest) && !exit)
+				{
+					printf("invalid destination\n");
+					valid = 0;
+				}
+				else {
+					valid = 1;
+				}
+				//checkWeight(truck, package);
+
+				//checkBoxSize(boxSize);
+
+				//checkSpaceOfTruck()         Send truck pointer, too many parameters.
+
+				/*
+				if (weight < 1 || weight > 1200) {
+					printf("Invalid weight (must be 1-1200 Kg.)");
+				}
+				*/
+			} while (!valid || !exit);
 		}
 		else {
-			valid = 1;
+			if (teststr[0] != '\0') {
+				if (strcmp(teststr, "0 0 x") == 0) {
+					valid = -1;
+				}
+				else {
+					int weight = 0;
+					double boxSize = 0.0;
+					char dest[BUFFER];
+					char* p;
+					char test[BUFFER] = "\0";
+					strcpy(test, teststr);
+					p = strtok(test, " ");
+					weight = atoi(p);
+					p = strtok(NULL, " ");
+					boxSize = atoi(p);
+					p = strtok(NULL, " ");
+					//p = strtok(test, " ");
+					strcpy(dest, p);
+					valid = Validdestination(routeMap, dest);
+				}
+			}
+			else {
+				valid = 0;
+			}
 		}
-		//checkWeight(truck, package);
-
-		//checkBoxSize(boxSize);
-
-		//checkSpaceOfTruck()         Send truck pointer, too many parameters.
-		
-		/*
-		if (weight < 1 || weight > 1200) {
-			printf("Invalid weight (must be 1-1200 Kg.)");
-		}
-		*/
-	} while (!valid || !exit);
+	}
 	printf("Thank you for shipping with Seneca!\n");
+	return valid;
 }
 
 
