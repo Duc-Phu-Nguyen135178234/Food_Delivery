@@ -51,7 +51,7 @@ namespace UnitTest1
 
         TEST_METHOD(validdestination_23Y)
         {
-            char dest[] = "25Y";
+            char dest[] = "23Y";
             Assert::IsFalse(Validdestination(&routeMap, dest));
         }
     };
