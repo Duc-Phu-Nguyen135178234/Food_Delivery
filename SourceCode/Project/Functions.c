@@ -14,7 +14,7 @@ int getInput(const struct Map* routeMap, char* teststr) {
 	char dest[BUFFER];
 	if (routeMap != NULL) {
 		if (teststr == NULL) {
-
+			
 			do {
 				printf("Enter shipment weight, box size and destination (0 0 x to stop): ");
 				scanf("%d %lf %s", &weight, &boxSize, &dest);
