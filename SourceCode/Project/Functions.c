@@ -128,7 +128,8 @@ int checkSpaceOfTruck(int space, struct Truck* truck1) {
 		printf("Error: The total space of the truck cannot exceed %d cubic meters.\n", BOX_SPACE);
 		return 0;
 	}
-
-	truck1->m_totalSpace += space;
-	return 1;
+	else {
+		truck1->m_totalSpace += space;
+		return 1;
+	}
 }
