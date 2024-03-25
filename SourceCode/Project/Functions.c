@@ -89,28 +89,31 @@ int isValidColumn(char column) {
 // check if correct format 8A 12A and map destination on routeMap return 1
 //if Destination out size the routeMap return 0
 
-int Validdestination(const struct Map* routeMap, const char* dest) {
-    int len = strlen(dest);
-    int row; char col;
-    
-    if (len<=2){
-    	// Invalid destination if the first character is not a digit
-	    if (!isdigit(dest[0])) return 0; 
-	    
-	    // Convert the row number part of the destination to an integer
-	    row = atoi(dest);
-	    
-	     // Extract the column letter part of the destination
-	    col = toupper(dest[len - 1]);
-	    
-	    if (row < 1 || row > MAP_COLS) return 0; // out range
-	    
-	    if (!isValidColumn(col, MAP_COLS)) return 0; // if the column letter is out of range
+int Validdestination(const struct Map * routeMap, const char* dest) {
+	int len = strlen(dest);
+	int row;
+	char col;
+
+	if (len >= 2 && len <= 3) { 
+		// Check if the last character is a letter
+		if (!isalpha(dest[len - 1])) return 0;
+
+	
+		row = atoi(dest); // Change this line to only convert the digits
+
+		// Extract the column letter part of the destination
+		col = toupper(dest[len - 1]);
+
+		if (row < 1 || row > MAP_ROWS) return 0; // out of range
+
+		if (!isValidColumn(col)) return 0; // if the column letter is out of range
+
 		
-		// after valid destination check building or not .If building on map show 1 . not valid 
-		if (routeMap->squares[row - 1][col - 'A'] == 1) return 0;
-		return 1;
+		// Check if the square at the destination is occupied by a building
+		if (routeMap->squares[row - 1][col - 'A'] == 1) return 0;; // Building present
+
+		return 1; // Destination is valid and accessible
 	}
 
-	return 0;
+	return 0; // Destination format invalid
 }
