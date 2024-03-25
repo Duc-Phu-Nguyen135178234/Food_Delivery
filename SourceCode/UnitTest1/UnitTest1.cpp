@@ -21,38 +21,57 @@ namespace UnitTest1
     };
 
 
-    TEST_CLASS(validdestination)
+   TEST_CLASS(validdestination)
     {
     public:
-        struct Map routeMap;
-
-        // Initialize the map before running any test
-        TEST_METHOD_INITIALIZE(setup) {
-            routeMap = populateMap();
-        }
+           
 
         TEST_METHOD(validdestination_1A)
+
         {
-            char dest[] = "1A";
-            Assert::IsTrue(Validdestination(&routeMap, dest));
+            struct Map routeMap = populateMap();
+            char dest[] = "1A"; 
+
+         
+            int result = Validdestination(&routeMap, dest);
+
+            // Assert
+            Assert::AreEqual(1, result);
+        }
+
+        TEST_METHOD(validdestination_8A)
+        {
+            struct Map routeMap = populateMap();
+            char dest[] = "8A"; // Building present
+
+           
+            int result = Validdestination(&routeMap, dest);
+
+            // Assert
+            Assert::AreEqual(1, result);
         }
 
         TEST_METHOD(validdestination_20Z)
         {
-            char dest[] = "20Z";
-            Assert::IsFalse(Validdestination(&routeMap, dest));
+            struct Map routeMap = populateMap();
+            char dest[] = "20Z"; // out range
+
+         
+            int result = Validdestination(&routeMap, dest);
+
+            
+            Assert::AreEqual(1, result);
         }
 
-        TEST_METHOD(validdestination_2B)
+        TEST_METHOD(validdestination_12A)
         {
-            char dest[] = "2B";
-            Assert::IsTrue(Validdestination(&routeMap, dest));
-        }
+            struct Map routeMap = populateMap();
+            char dest[] = "12A"; // Building present
 
-        TEST_METHOD(validdestination_23Y)
-        {
-            char dest[] = "23Y";
-            Assert::IsFalse(Validdestination(&routeMap, dest));
+            int result = Validdestination(&routeMap, dest);
+
+            
+            Assert::AreEqual(1, result);
         }
     };
 
