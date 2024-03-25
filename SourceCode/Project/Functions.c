@@ -41,7 +41,7 @@ int getInput(const struct Map* routeMap, char* teststr) {
 				//checkBoxSize(boxSize);
 
 				//checkSpaceOfTruck()         Send truck pointer, too many parameters.
-
+				
 				/*
 				if (weight < 1 || weight > 1200) {
 					printf("Invalid weight (must be 1-1200 Kg.)");
@@ -114,7 +114,21 @@ int Validdestination(const struct Map * routeMap, const char* dest) {
 		if (routeMap->squares[row - 1][col - 'A'] == 1) return 0;; // Building present
 
 		return 1; // Destination is valid and accessible
+
 	}
 
+
 	return 0; // Destination format invalid
+
+}
+
+int checkSpaceOfTruck(int space, struct Truck* truck1) {
+	if (truck1->m_totalSpace + space > BOX_SPACE) {
+
+		printf("Error: The total space of the truck cannot exceed %d cubic meters.\n", BOX_SPACE);
+		return 0;
+	}
+
+	truck1->m_totalSpace += space;
+	return 1;
 }
