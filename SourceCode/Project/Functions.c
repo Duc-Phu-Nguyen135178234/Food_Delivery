@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include "Functions.h"
 #include "data.h"
+#include "truck.h"
 
 int getInput(const struct Map* routeMap, char* teststr) {
 	int valid = 0;

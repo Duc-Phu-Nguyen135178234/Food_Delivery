@@ -1,5 +1,7 @@
 #pragma once
 
+#ifndef TRUCK_H
+#define TRUCK_H
 //TRUCK
 #define MAX_CARGO 1200 //kg
 #define BOX_SPACE 50 //cubic meters
@@ -13,3 +15,5 @@ struct Truck {
 	double m_totalWeight; // KG. Cannot exceed MAX_CARGO
 	char* route;          // assigned route
 };
+
+#endif
