@@ -153,3 +153,21 @@ int checkBoxSize(double shipmentSize) {
 
     return result;
 }
+
+int checkWeight(struct Truck* truck, struct PackageInf* package) {
+	// Check if pointers are valid
+	if (truck == NULL || package == NULL) {
+		return 0; // Return false if either pointer is null, indicating an error
+	}
+
+	// Calculate new total weight if package is added to truck
+	double newTotalWeight = truck->m_totalWeight + package->m_weight;
+
+	// Check if the new total weight exceeds the truck's weight limit
+	if (newTotalWeight > HIGH_WEIGHT) {
+		return 0; // Cannot add package without exceeding limit, return false
+	}
+	else {
+		return 1; // Can safely add package, return true
+	}
+}
