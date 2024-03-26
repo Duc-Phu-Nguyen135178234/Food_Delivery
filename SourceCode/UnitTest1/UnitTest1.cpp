@@ -98,7 +98,7 @@ namespace UnitTest1
             Assert::IsTrue(valid);
         }
     };
-<<<<<<< HEAD
+
     TEST_CLASS(CheckWeightTests)
     {
     public:
@@ -134,16 +134,10 @@ namespace UnitTest1
             int result = checkWeight(&truck, &package);
             Assert::AreEqual(0, result);
         }
-=======
-
-
-
-
+    };
 
     TEST_CLASS(checkboxsize) {
 
-
-        // Include your function declaration
     public:
 
         // Define your test cases
@@ -171,7 +165,5 @@ namespace UnitTest1
             Assert::IsFalse(result);
         }
 
-
->>>>>>> b4d9342fa49d38858a8a4934436978028dfca3ba
     };
 }

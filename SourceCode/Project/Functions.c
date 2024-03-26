@@ -27,13 +27,19 @@ int getInput(const struct Map* routeMap, char* teststr) {
 				}
 
 
-				if (!Validdestination(routeMap, dest) && !exit)
+				if (!Validdestination(routeMap, dest)&& !exit)
 				{
 					printf("invalid destination\n");
 					valid = 0;
 				}
 				else {
 					valid = 1;
+				}
+				if (checkBoxSize && valid && !exit) {
+					valid = 1;
+				}
+				else {
+					valid = 0;
 				}
 
 				
@@ -144,11 +150,11 @@ int checkBoxSize(double shipmentSize) {
     int result = 0;
 
     if (shipmentSize == size1 || shipmentSize == size2 || shipmentSize == size3) {
-        printf("Box size is valid.\n");
+        //printf("Box size is valid.\n");
         result = 1;
         
     } else {
-        printf("Box size is not valid.\n");
+        printf("Invalid size\n");
     }
 
     return result;
