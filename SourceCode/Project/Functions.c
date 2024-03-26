@@ -138,9 +138,9 @@ int checkSpaceOfTruck(int space, struct Truck* truck1) {
 
 int checkBoxSize(double shipmentSize) {
     
-    const double size1 = 0.25;
-    const double size2 = 0.5;
-    const double size3 = 1.0;
+    const double size1 = 0.5;
+    const double size2 = 1.0;
+    const double size3 = 5.0;
     int result = 0;
 
     if (shipmentSize == size1 || shipmentSize == size2 || shipmentSize == size3) {
