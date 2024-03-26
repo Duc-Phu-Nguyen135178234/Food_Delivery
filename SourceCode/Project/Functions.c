@@ -36,6 +36,8 @@ int getInput(const struct Map* routeMap, char* teststr) {
 				else {
 					valid = 1;
 				}
+
+				
 				//checkWeight(truck, package);
 
 				//checkBoxSize(boxSize);
