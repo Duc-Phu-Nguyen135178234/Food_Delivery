@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "CppUnitTest.h"
 #include "functions_r.h"
+#include "data.h"
 
 using namespace Microsoft::VisualStudio::CppUnitTestFramework;
 
@@ -97,6 +98,43 @@ namespace UnitTest1
             Assert::IsTrue(valid);
         }
     };
+<<<<<<< HEAD
+    TEST_CLASS(CheckWeightTests)
+    {
+    public:
+
+        TEST_METHOD(MinimumValidWeight)
+        {
+            Truck truck = { 0, 0, 200, nullptr };
+            PackageInf package = { 1, 0, nullptr };
+            int result = checkWeight(&truck, &package);
+            Assert::AreEqual(1, result);
+        }
+
+        TEST_METHOD(MaximumValidAddition)
+        {
+            Truck truck = { 0, 0, 200, nullptr };
+            PackageInf package = { 1200, 0, nullptr };
+            int result = checkWeight(&truck, &package);
+            Assert::AreEqual(1, result);
+        }
+
+        TEST_METHOD(WeightOverMaximum)
+        {
+            Truck truck = { 0, 0, 0, nullptr };
+            PackageInf package = { 1201, 0, nullptr };
+            int result = checkWeight(&truck, &package);
+            Assert::AreEqual(0, result);
+        }
+
+        TEST_METHOD(TruckOverCapacity)
+        {
+            Truck truck = { 0, 0, 800, nullptr };
+            PackageInf package = { 500, 0, nullptr };
+            int result = checkWeight(&truck, &package);
+            Assert::AreEqual(0, result);
+        }
+=======
 
 
 
@@ -134,5 +172,6 @@ namespace UnitTest1
         }
 
 
+>>>>>>> b4d9342fa49d38858a8a4934436978028dfca3ba
     };
 }
