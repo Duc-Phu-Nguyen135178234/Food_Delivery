@@ -136,20 +136,18 @@ int checkSpaceOfTruck(int space, struct Truck* truck1) {
 }
 
 
-int validCargo(float boxsize)
-{
-    const double minSize = 0.25;
-    const double halfSize = 0.5;
-    const double maxSize = 1.0;
+int checkBoxSize(double shipmentSize) {
+    
+    const double size1 = 0.25;
+    const double size2 = 0.5;
+    const double size3 = 1.0;
     int result = 0;
 
-    if (boxsize == minSize || boxsize == halfSize || boxsize == maxSize)
-    {
-        // printf("Box size is valid.\n"); // Corrected the printf statement
+    if (shipmentSize == size1 || shipmentSize == size2 || shipmentSize == size3) {
+        printf("Box size is valid.\n");
         result = 1;
-    }
-    else
-    {
+        
+    } else {
         printf("Box size is not valid.\n");
     }
 
