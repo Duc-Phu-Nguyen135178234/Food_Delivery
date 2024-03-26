@@ -99,7 +99,6 @@ namespace UnitTest1
         }
     };
 
-
     TEST_CLASS(CheckWeightTests)
     {
     public:
@@ -135,7 +134,7 @@ namespace UnitTest1
             int result = checkWeight(&truck, &package);
             Assert::AreEqual(0, result);
         }
-
+    };
 
     TEST_CLASS(checkboxsize) {
 
