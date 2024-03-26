@@ -7,9 +7,9 @@
 #define BOX_SPACE 50 
 
 //PACKAGE SIZES. Cubic Meters.
-#define SZ_MIN 0.25
-#define SZ_MID 0.5 
-#define SZ_MAX 1 
+#define SZ_MIN 0.5
+#define SZ_MID 1.0
+#define SZ_MAX 5.0
 
 #define destination 3
 
