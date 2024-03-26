@@ -97,40 +97,42 @@ namespace UnitTest1
             Assert::IsTrue(valid);
         }
     };
+
+
+
+
+
+    TEST_CLASS(checkboxsize) {
+
+
+        // Include your function declaration
+    public:
+
+        // Define your test cases
+        TEST_METHOD(shipmentSize_Null) {
+            double shipmentSize = NULL;
+            int result = checkBoxSize(shipmentSize);
+            Assert::IsFalse(result);
+        }
+
+        TEST_METHOD(shipmentSize_1) {
+            double shipmentSize = 1;
+            int result = checkBoxSize(shipmentSize);
+            Assert::IsTrue(result);
+        }
+
+        TEST_METHOD(shipmentSize_7) {
+            double shipmentSize = 7;
+            int result = checkBoxSize(shipmentSize);
+            Assert::IsFalse(result);
+        }
+
+        TEST_METHOD(shipmentSize_character) {
+            char shipmentSize = abc;
+            int result = checkBoxSize(shipmentSize);
+            Assert::IsFalse(result);
+        }
+
+
+    };
 }
-
-
-
-
-
-// Include your function declaration
-int checkBoxSize(double shipmentSize){
-public:
-    
-    // Define your test cases
-    TEST_METHOD(shipmentSize_Null) {
-        double shipmentSize = NULL;
-        int result = checkBoxSize(shipmentSize);
-        Assert::IsFalse(valid);
-    }
-    
-    TEST_METHOD(shipmentSize_1) {
-        double shipmentSize = 1 ;
-        int result = checkBoxSize(shipmentSize);
-        Assert::IsTrue(valid);
-    }
-    
-    TEST_METHOD(shipmentSize_7) {
-        double shipmentSize = 7;
-        int result = checkBoxSize(shipmentSize);
-        Assert::IsFalse(valid);
-    }
-    
-    TEST_METHOD(shipmentSize_character) {
-        char shipmentSize = abc;
-        int result = checkBoxSize(shipmentSize);
-        Assert::IsFalse(valid);
-    }
-    
-}
-
