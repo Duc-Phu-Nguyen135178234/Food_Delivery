@@ -128,7 +128,7 @@ namespace UnitTest1
         }
 
         TEST_METHOD(shipmentSize_character) {
-            char shipmentSize = a;
+            char shipmentSize = 'a';
             int result = checkBoxSize(shipmentSize);
             Assert::IsFalse(result);
         }
