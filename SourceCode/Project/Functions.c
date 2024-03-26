@@ -4,7 +4,6 @@
 #include <stdlib.h>
 #include "Functions.h"
 #include "data.h"
-#include "truck.h"
 
 int getInput(const struct Map* routeMap, char* teststr) {
 	int valid = 0;
@@ -36,6 +35,8 @@ int getInput(const struct Map* routeMap, char* teststr) {
 				else {
 					valid = 1;
 				}
+
+				
 				//checkWeight(truck, package);
 
 				//checkBoxSize(boxSize);
