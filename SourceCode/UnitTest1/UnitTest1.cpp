@@ -138,8 +138,6 @@ namespace UnitTest1
 
     TEST_CLASS(checkboxsize) {
 
-
-        // Include your function declaration
     public:
 
         // Define your test cases
@@ -167,7 +165,5 @@ namespace UnitTest1
             Assert::IsFalse(result);
         }
 
-
->>>>>>> b4d9342fa49d38858a8a4934436978028dfca3ba
     };
 }
