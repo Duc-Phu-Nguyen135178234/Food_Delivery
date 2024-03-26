@@ -104,7 +104,7 @@ namespace UnitTest1
 
 
 // Include your function declaration
-int checkBoxSize(double shipmentSize){
+TEST_CLASS(int checkBoxSize){
 public:
     
     // Define your test cases
