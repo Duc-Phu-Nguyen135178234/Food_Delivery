@@ -110,25 +110,25 @@ public:
     // Define your test cases
     TEST_METHOD(shipmentSize_Null) {
         double shipmentSize = NULL;
-        int result = checkBoxSize(boxSize);
+        int result = checkBoxSize(shipmentSize);
         Assert::IsFalse(valid);
     }
     
     TEST_METHOD(shipmentSize_1) {
         double shipmentSize = 1 ;
-        int result = checkBoxSize(boxSize);
+        int result = checkBoxSize(shipmentSize);
         Assert::IsTrue(valid);
     }
     
     TEST_METHOD(shipmentSize_7) {
         double shipmentSize = 7;
-        int result = checkBoxSize(boxSize);
+        int result = checkBoxSize(shipmentSize);
         Assert::IsFalse(valid);
     }
     
     TEST_METHOD(shipmentSize_character) {
         char shipmentSize = abc;
-        int result = checkBoxSize(boxSize);
+        int result = checkBoxSize(shipmentSize);
         Assert::IsFalse(valid);
     }
     
