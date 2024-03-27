@@ -18,43 +18,36 @@ int getInput(const struct Map* routeMap, char* teststr) {
 				printf("Enter shipment weight, box size and destination (0 0 x to stop): ");
 				scanf("%d %lf %s", &weight, &boxSize, &dest);
 				dest[strlen(dest)] = '\0';
-				//We call check functions here? checkWeight() needs int weight parameter
-				//If all checks pass then we exit loop and proceed with the calculations
-				//We might want to consider some other functions since we are just checking input so far.
 
 				if (weight == 0 && boxSize == 0 && strcmp(dest, "x") == 0) {
 					exit = 1;
 				}
 
+				if (!exit) {
+					if (!Validdestination(routeMap, dest))
+					{
+						printf("invalid destination\n");
+						valid = 0;
+					}
+					else {
+						valid = 1;
+						
+						if (checkBoxSize(boxSize)) {
+							valid = 1;
+						}
+						else {
+							valid = 0;
+							printf("Invalid size\n");
+						}
+					}
+					
 
-				if (!Validdestination(routeMap, dest)&& !exit)
-				{
-					printf("invalid destination\n");
-					valid = 0;
 				}
-				else {
-					valid = 1;
-				}
-				if (checkBoxSize && valid && !exit) {
-					valid = 1;
-				}
-				else {
-					valid = 0;
-				}
-
-				
 				//checkWeight(truck, package);
 
-				//checkBoxSize(boxSize);
-
-				//checkSpaceOfTruck()         Send truck pointer, too many parameters.
-				
-				/*
-				if (weight < 1 || weight > 1200) {
-					printf("Invalid weight (must be 1-1200 Kg.)");
-				}
-				*/
-			} while (!valid || !exit);
+				//checkSpaceOfTruck()
+			
+			} while (!valid && !exit);
 		}
 		else {
 			if (teststr[0] != '\0') {
@@ -154,7 +147,7 @@ int checkBoxSize(double shipmentSize) {
         result = 1;
         
     } else {
-        printf("Invalid size\n");
+		result = 0;
     }
 
     return result;
