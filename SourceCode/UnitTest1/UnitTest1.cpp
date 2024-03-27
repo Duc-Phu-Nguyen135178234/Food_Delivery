@@ -72,10 +72,10 @@ namespace UnitTest1
             Assert::AreEqual(1, result);
         }
 
-        TEST_METHOD(validdestination_8A)
+        TEST_METHOD(validdestination_25Y)
         {
             struct Map routeMap = populateMap();
-            char dest[] = "8A"; // Building present
+            char dest[] = "25Y"; // Building present
 
            
             int result = Validdestination(&routeMap, dest);
@@ -84,10 +84,10 @@ namespace UnitTest1
             Assert::AreEqual(1, result);
         }
 
-        TEST_METHOD(validdestination_20Z)
+        TEST_METHOD(validdestination_10M)
         {
             struct Map routeMap = populateMap();
-            char dest[] = "20Z"; // out range
+            char dest[] = "10M"; // out range
 
          
             int result = Validdestination(&routeMap, dest);
@@ -96,10 +96,10 @@ namespace UnitTest1
             Assert::AreEqual(1, result);
         }
 
-        TEST_METHOD(validdestination_12A)
+        TEST_METHOD(validdestination_23U)
         {
             struct Map routeMap = populateMap();
-            char dest[] = "12A"; // Building present
+            char dest[] = "23U"; // Building present
 
             int result = Validdestination(&routeMap, dest);
 
