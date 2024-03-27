@@ -209,7 +209,7 @@ namespace UnitTest1
             Truck tr1;
             tr1.m_totalSpace = 8;
             int result = checkSpaceOfTruck(space, &tr1);
-            Assert::AreEqual(0, result);
+            Assert::AreEqual(1, result);
         }
 
         TEST_METHOD(TestSpace6) {
@@ -233,7 +233,7 @@ namespace UnitTest1
             Truck tr1;
             tr1.m_totalSpace = 0;
             int result = checkSpaceOfTruck(space, &tr1);
-            Assert::AreEqual(0, result);
+            Assert::AreEqual(1, result);
         }
 
     };

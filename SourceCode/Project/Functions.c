@@ -141,7 +141,7 @@ int checkBoxSize(double shipmentSize) {
     //const double size3 = 5.0;
     int result = 0;
 
-    if (shipmentSize == size1 || shipmentSize == size2 || shipmentSize == size3) {
+    if (shipmentSize == SIZE1 || shipmentSize == SIZE2 || shipmentSize == SIZE3) {
         //printf("Box size is valid.\n");
         result = 1;
         

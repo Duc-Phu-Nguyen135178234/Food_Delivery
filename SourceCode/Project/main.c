@@ -17,7 +17,6 @@ int main(void)
 	struct Point p1 = { 'a', '1' };
 	struct Point p2 = { 'b', '2' };
 	double a = distance(&p1, &p2);
-	printf("%lf\n", a);
 
 	printMap(&routeMap, 1, 1);
 	getInput(&routeMap, NULL);
