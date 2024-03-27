@@ -166,4 +166,27 @@ namespace UnitTest1
         }
 
     };
+
+    TEST_CLASS(checkspaceoftruck) {
+
+    public:
+
+        // Define your test cases
+        TEST_METHOD(shipmentSize_Null) {
+            ;
+        }
+
+        TEST_METHOD(shipmentSize_1) {
+            ;
+        }
+
+        TEST_METHOD(shipmentSize_7) {
+            ;
+        }
+
+        TEST_METHOD(shipmentSize_character) {
+            ;
+        }
+
+    };
 }
