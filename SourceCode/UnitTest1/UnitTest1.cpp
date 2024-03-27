@@ -10,7 +10,7 @@ namespace UnitTest1
     TEST_CLASS(distanceFunction)
     {
     public:
-
+        // White box tests
         TEST_METHOD(TestValidPoints)
         {
 
@@ -18,6 +18,38 @@ namespace UnitTest1
             Point p2 = { 'b', '5' };
             double a = distance(&p1, &p2);
             Assert::AreEqual(1.0, a);
+        }
+        TEST_METHOD(TestTwoSpacesAlpha)
+        {
+
+            Point p1 = { 'a', '5' };
+            Point p2 = { 'c', '5' };
+            double a = distance(&p1, &p2);
+            Assert::AreEqual(2.0, a);
+        }
+        TEST_METHOD(TestTwoSpacesNumbers)
+        {
+
+            Point p1 = { 'a', '5' };
+            Point p2 = { 'a', '7' };
+            double a = distance(&p1, &p2);
+            Assert::AreEqual(2.0, a);
+        }
+        TEST_METHOD(Testsamepoint)
+        {
+
+            Point p1 = { 'a', '5' };
+            Point p2 = { 'a', '5' };
+            double a = distance(&p1, &p2);
+            Assert::AreEqual(0.0, a);
+        }
+        TEST_METHOD(Testhypotenuse)
+        {
+
+            Point p1 = { 'a', '1' };
+            Point p2 = { 'b', '2' };
+            int a = distance(&p1, &p2);
+            Assert::AreEqual(1, a);
         }
     };
 
