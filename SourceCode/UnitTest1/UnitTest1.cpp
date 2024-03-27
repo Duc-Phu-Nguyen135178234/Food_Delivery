@@ -172,20 +172,36 @@ namespace UnitTest1
     public:
 
         // Define your test cases
-        TEST_METHOD(shipmentSize_Null) {
-            ;
+        TEST_METHOD(TestSpace15) {
+            int space = 15;
+            Truck tr1;
+            tr1.m_totalSpace = 8;
+            int result = checkSpaceOfTruck(space, &tr1);
+            Assert::AreEqual(0, result);
         }
 
-        TEST_METHOD(shipmentSize_1) {
-            ;
+        TEST_METHOD(TestSpace6) {
+            int space = 6;
+            Truck tr1;
+            tr1.m_totalSpace = 8;
+            int result = checkSpaceOfTruck(space, &tr1);
+            Assert::AreEqual(1, result);
         }
 
-        TEST_METHOD(shipmentSize_7) {
-            ;
+        TEST_METHOD(TestSpace10) {
+            int space = 10;
+            Truck tr1;
+            tr1.m_totalSpace = 45;
+            int result = checkSpaceOfTruck(space, &tr1);
+            Assert::AreEqual(0, result);
         }
 
-        TEST_METHOD(shipmentSize_character) {
-            ;
+        TEST_METHOD(TestNullspace) {
+            int space = 0;
+            Truck tr1;
+            tr1.m_totalSpace = 0;
+            int result = checkSpaceOfTruck(space, &tr1);
+            Assert::AreEqual(0, result);
         }
 
     };
