@@ -116,7 +116,7 @@ namespace UnitTest1
             Truck truck = { 0, 0, 200, nullptr };
             PackageInf package = { 1200, 0, nullptr };
             int result = checkWeight(&truck, &package);
-            Assert::AreEqual(1, result);
+            Assert::AreEqual(0, result);
         }
 
         TEST_METHOD(WeightOverMaximum)
