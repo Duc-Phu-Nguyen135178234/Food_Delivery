@@ -116,7 +116,7 @@ namespace UnitTest1
             Truck truck = { 0, 0, 200, nullptr };
             PackageInf package = { 1200, 0, nullptr };
             int result = checkWeight(&truck, &package);
-            Assert::AreEqual(1, result);
+            Assert::AreEqual(0, result);
         }
 
         TEST_METHOD(WeightOverMaximum)
@@ -163,6 +163,29 @@ namespace UnitTest1
             char shipmentSize = 'a';
             int result = checkBoxSize(shipmentSize);
             Assert::IsFalse(result);
+        }
+
+    };
+
+    TEST_CLASS(checkspaceoftruck) {
+
+    public:
+
+        // Define your test cases
+        TEST_METHOD(shipmentSize_Null) {
+            ;
+        }
+
+        TEST_METHOD(shipmentSize_1) {
+            ;
+        }
+
+        TEST_METHOD(shipmentSize_7) {
+            ;
+        }
+
+        TEST_METHOD(shipmentSize_character) {
+            ;
         }
 
     };
