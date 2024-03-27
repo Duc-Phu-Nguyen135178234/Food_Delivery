@@ -105,7 +105,7 @@ namespace UnitTest1
 
         TEST_METHOD(MinimumValidWeight)
         {
-            Truck truck = { 0, 0, 200, nullptr };
+            Truck truck = { 0, 0, 200, '\0' };
             PackageInf package = { 1, 0, nullptr };
             int result = checkWeight(&truck, &package);
             Assert::AreEqual(1, result);
@@ -113,7 +113,7 @@ namespace UnitTest1
 
         TEST_METHOD(MaximumValidAddition)
         {
-            Truck truck = { 0, 0, 200, nullptr };
+            Truck truck = { 0, 0, 200, '\0' };
             PackageInf package = { 1200, 0, nullptr };
             int result = checkWeight(&truck, &package);
             Assert::AreEqual(0, result);
@@ -121,7 +121,7 @@ namespace UnitTest1
 
         TEST_METHOD(WeightOverMaximum)
         {
-            Truck truck = { 0, 0, 0, nullptr };
+            Truck truck = { 0, 0, 0, '\0' };
             PackageInf package = { 1201, 0, nullptr };
             int result = checkWeight(&truck, &package);
             Assert::AreEqual(0, result);
@@ -129,7 +129,7 @@ namespace UnitTest1
 
         TEST_METHOD(TruckOverCapacity)
         {
-            Truck truck = { 0, 0, 800, nullptr };
+            Truck truck = { 0, 0, 800, '\0' };
             PackageInf package = { 500, 0, nullptr };
             int result = checkWeight(&truck, &package);
             Assert::AreEqual(0, result);

@@ -41,7 +41,6 @@ int getInput(const struct Map* routeMap, char* teststr) {
 						}
 					}
 					
-
 				}
 				//checkWeight(truck, package);
 
