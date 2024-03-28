@@ -54,4 +54,5 @@ int Validdestination(const struct Map* routeMap, char* dest);
 int checkSpaceOfTruck(int space , struct Truck* truck1);
 //this prototype will take 6 values  and returns integer value
 //
+struct Point calcClosestPointeFromRoute(const struct Route* r1, struct Point* dest);
 #endif //SENECA_DELIVERY_H

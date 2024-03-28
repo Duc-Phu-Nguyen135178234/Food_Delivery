@@ -169,3 +169,22 @@ int checkWeight(struct Truck* truck, struct PackageInf* package) {
 		return 1; // Can safely add package, return true
 	}
 }
+struct Point calcClosestPointeFromRoute(const struct Route* r1, struct Point* dest) {
+	int i = 0;
+	double results[100] = { -1.0 };
+	double min = 0;
+	int index = 0;
+	for (i = 0; i < r1->numPoints; i++) {
+		results[i] = distance(&r1->points[i], dest);
+		//printf("%lf\n", results[i]);
+	}
+	min = results[0];
+	for (i = 0; i < r1->numPoints; i++) {
+		if (results[i] < min) {
+			min = results[i];
+			index = i;
+		}
+	}
+	printf("%d\n", index + 1);
+	return r1->points[index];
+}
