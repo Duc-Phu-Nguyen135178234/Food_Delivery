@@ -33,7 +33,7 @@ int getInput(const struct Map* routeMap, struct PackageInf* package, char* tests
 					else {
 						valid = 1;
 						package->m_destination = dest;
-						
+
 						if (!checkBoxSize(boxSize)) {
 							valid = 0;
 							printf("Invalid size\n");
@@ -52,12 +52,7 @@ int getInput(const struct Map* routeMap, struct PackageInf* package, char* tests
 							}
 						}
 					}
-					
 				}
-				//checkWeight(truck, package);
-
-				//checkSpaceOfTruck()
-			
 			} while (!valid && !exit);
 			return 1;
 		}
@@ -193,7 +188,7 @@ struct Point calcClosestPointeFromRoute(const struct Route* r1, struct Point* de
 			index = i;
 		}
 	}
-	printf("%d\n", index + 1);
+	//printf("%d\n", index + 1);
 	return r1->points[index];
 }
 
