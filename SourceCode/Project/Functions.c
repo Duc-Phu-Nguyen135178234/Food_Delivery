@@ -5,7 +5,7 @@
 #include "Functions.h"
 #include "data.h"
 
-int getInput(const struct Map* routeMap, char* teststr) {
+int getInput(const struct Map* routeMap, struct PackageInf* package, char* teststr) {
 	int valid = 0;
 	int exit = 0;
 	int weight = 0;
@@ -20,7 +20,7 @@ int getInput(const struct Map* routeMap, char* teststr) {
 
 				if (weight == 0 && boxSize == 0 && strcmp(dest, "x") == 0) {
 					printf("Thank you for shipping with Seneca!\n");
-					return 1;
+					return 0;
 					exit = 1;
 				}
 
@@ -32,13 +32,24 @@ int getInput(const struct Map* routeMap, char* teststr) {
 					}
 					else {
 						valid = 1;
+						package->m_destination = dest;
 						
-						if (checkBoxSize(boxSize)) {
-							valid = 1;
-						}
-						else {
+						if (!checkBoxSize(boxSize)) {
 							valid = 0;
 							printf("Invalid size\n");
+						}
+						else {
+							valid = 1;
+							package->m_boxSize = boxSize;
+
+							if (!validBoxWeight(weight)) {
+								valid = 0;
+								printf("Invalid weight (must be 1-1200 Kg.)\n");
+							}
+							else {
+								valid = 1;
+								package->m_weight = weight;
+							}
 						}
 					}
 					
@@ -48,7 +59,7 @@ int getInput(const struct Map* routeMap, char* teststr) {
 				//checkSpaceOfTruck()
 			
 			} while (!valid && !exit);
-			return 0;
+			return 1;
 		}
 		else {
 			if (teststr[0] != '\0') {
@@ -184,4 +195,13 @@ struct Point calcClosestPointeFromRoute(const struct Route* r1, struct Point* de
 	}
 	printf("%d\n", index + 1);
 	return r1->points[index];
+}
+
+int validBoxWeight(int weight) {
+	if (weight <= HIGH_WEIGHT && weight >= LOW_WEIGHT) {
+		return 1;
+	}
+	else {
+		return 0;
+	}
 }

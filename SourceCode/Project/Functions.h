@@ -8,7 +8,7 @@
 //header file for 6 function
 
 //Create function prototype getInput
-int getInput(const struct Map* routeMap, char* teststr);
+int getInput(const struct Map* routeMap, struct PackageInf* package, char* teststr);
 /*Prompt the user for input and store by address to a packageInf* object
 * Include Validation for user input before storing to data structure
 */
@@ -55,4 +55,6 @@ int checkSpaceOfTruck(int space , struct Truck* truck1);
 //this prototype will take 6 values  and returns integer value
 //
 struct Point calcClosestPointeFromRoute(const struct Route* r1, struct Point* dest);
+
+int validBoxWeight(int weight);
 #endif //SENECA_DELIVERY_H

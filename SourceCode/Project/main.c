@@ -6,7 +6,8 @@
 
 int main(void)
 {
-	int exit = 0;
+	int flag = 0;
+	struct PackageInf currentPackage;
 	struct Truck truck1 = { 0, 0.0, 0.0, BLUE };
 	struct Truck truck2 = { 0, 0.0, 0.0, YELLOW };
 	struct Truck truck3 = { 0, 0.0, 0.0, GREEN };
@@ -19,8 +20,11 @@ int main(void)
 	//getInput(&routeMap, NULL);
 
 	do {
-		exit = getInput(&routeMap, NULL);
-	} while (!exit);
+		flag = getInput(&routeMap, &currentPackage, NULL);
+		if (flag) {
+
+		}
+	} while (!flag);
 	
 	return 0;
 }
