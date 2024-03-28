@@ -6,6 +6,7 @@
 
 int main(void)
 {
+	int exit = 0;
 	struct Truck truck1 = { 0, 0.0, 0.0, BLUE };
 	struct Truck truck2 = { 0, 0.0, 0.0, YELLOW };
 	struct Truck truck3 = { 0, 0.0, 0.0, GREEN };
@@ -14,12 +15,12 @@ int main(void)
 	struct Route blueRoute = getBlueRoute();
 	struct Map routeMap = addRoute(&baseMap, &blueRoute);
 
-	struct Point p1 = { 'a', '1' };
-	struct Point p2 = { 'b', '2' };
-	double a = distance(&p1, &p2);
-
 	printMap(&routeMap, 1, 1);
-	getInput(&routeMap, NULL);
+	//getInput(&routeMap, NULL);
+
+	do {
+		exit = getInput(&routeMap, NULL);
+	} while (!exit);
 	
 	return 0;
 }

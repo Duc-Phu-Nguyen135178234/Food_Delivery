@@ -13,13 +13,14 @@ int getInput(const struct Map* routeMap, char* teststr) {
 	char dest[BUFFER];
 	if (routeMap != NULL) {
 		if (teststr == NULL) {
-			
 			do {
 				printf("Enter shipment weight, box size and destination (0 0 x to stop): ");
 				scanf("%d %lf %s", &weight, &boxSize, &dest);
 				dest[strlen(dest)] = '\0';
 
 				if (weight == 0 && boxSize == 0 && strcmp(dest, "x") == 0) {
+					printf("Thank you for shipping with Seneca!\n");
+					return 1;
 					exit = 1;
 				}
 
@@ -47,6 +48,7 @@ int getInput(const struct Map* routeMap, char* teststr) {
 				//checkSpaceOfTruck()
 			
 			} while (!valid && !exit);
+			return 0;
 		}
 		else {
 			if (teststr[0] != '\0') {
@@ -75,7 +77,6 @@ int getInput(const struct Map* routeMap, char* teststr) {
 			}
 		}
 	}
-	printf("Thank you for shipping with Seneca!\n");
 	return valid;
 }
 
@@ -135,10 +136,7 @@ int checkSpaceOfTruck(int space, struct Truck* truck1) {
 
 
 int checkBoxSize(double shipmentSize) {
-    
-    //const double size1 = 0.5;
-    //const double size2 = 1.0;
-    //const double size3 = 5.0;
+
     int result = 0;
 
     if (shipmentSize == SIZE1 || shipmentSize == SIZE2 || shipmentSize == SIZE3) {
@@ -176,7 +174,6 @@ struct Point calcClosestPointeFromRoute(const struct Route* r1, struct Point* de
 	int index = 0;
 	for (i = 0; i < r1->numPoints; i++) {
 		results[i] = distance(&r1->points[i], dest);
-		//printf("%lf\n", results[i]);
 	}
 	min = results[0];
 	for (i = 0; i < r1->numPoints; i++) {
