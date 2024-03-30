@@ -113,20 +113,20 @@ namespace UnitTest1
         const struct Map testMap = populateMap();
         TEST_METHOD(getInput_NULLMap) {
             const struct Map* map = NULL;
-            int valid = getInput(map, NULL);
+            int valid = getInput(map, NULL, NULL);
             Assert::IsFalse(valid);
         }
         TEST_METHOD(getInput_empty) {
             char test[] = "\0";
-            int valid = getInput(&testMap, test);
+            int valid = getInput(&testMap, NULL, test);
             Assert::IsFalse(valid);
         }
         TEST_METHOD(getInput_Exit) {
-            int valid = getInput(&testMap, "0 0 x");
+            int valid = getInput(&testMap, NULL,"0 0 x");
             Assert::AreEqual(-1, valid);
         }
         TEST_METHOD(getInput_validDestination) {
-            int valid = getInput(&testMap, "0 0 1A");
+            int valid = getInput(&testMap, NULL,"0 0 1A");
             Assert::IsTrue(valid);
         }
     };
