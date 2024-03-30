@@ -117,9 +117,9 @@ int Validdestination(const struct Map * routeMap, const char* dest) {
 
 		
 		// Check if the square at the destination is occupied by a building
-		if (routeMap->squares[row - 1][col - 'A'] == 1) return 0;; // Building present
+		return (routeMap->squares[row - 1][col - 'A'] == 1) ? 1 : 0; // Building present
 
-		return 1; // Destination is valid and accessible
+		//return 1; // Destination is valid and accessible
 
 	}
 
