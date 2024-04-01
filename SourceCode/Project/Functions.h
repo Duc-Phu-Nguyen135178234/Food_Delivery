@@ -35,20 +35,15 @@ acceptable box sizes. The function then compares the ' shipmentSize ' parameter 
 /*If the 'shipmentSize' matches any of the valid sizes, the function prints "valid" and returns 1 (true) to indicate that the box
 size is valid or “ invalid” and returns 0(false), if it does not match.*/
 
-
-
-
 int isValidColumn(char column);
 //function check column vaild when user input . MAP_ROW is macro define in mapping.h.
 // using inside function Validdestination
-
 
 int Validdestination(const struct Map* routeMap, char* dest);
 //create function prototype Validdestination
 // get char destination[]  
 // check if correct format 8A 12A and map destination on routeMap return 1
 //if Destination out size the routeMap return 0
-
 
 //create function prototype check space of truck
 int checkSpaceOfTruck(int space , struct Truck* truck1);
@@ -57,4 +52,10 @@ int checkSpaceOfTruck(int space , struct Truck* truck1);
 struct Point calcClosestPointeFromRoute(const struct Route* r1, struct Point* dest);
 
 int validBoxWeight(int weight);
+
+void printPoint(const struct Point* point);
+
+struct Point convertPoint(const char* pointText);
+
+void handleInnerPoint(struct Point* point);
 #endif //SENECA_DELIVERY_H

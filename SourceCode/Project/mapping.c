@@ -223,11 +223,11 @@ double distance(const struct Point* p1, const struct Point* p2)
 
 struct Route shortestPath(const struct Map* map, const struct Point start, const struct Point dest)
 {
-	struct Route result = { {0,0}, 0, DIVERSION };
+	struct Route result = { {0,0}, 0, DIVERSION }; //HERE
 	struct Point last = { -1, -1 };
 	struct Point current = start;
 	struct Route possible = { {0,0},0,0 };
-	int close = 0;
+	int close = 1;
 
 	while (!eqPt(current, dest) && close >= 0)
 	{
@@ -238,6 +238,11 @@ struct Route shortestPath(const struct Map* map, const struct Point start, const
 			last = current;
 			current = possible.points[close];
 			addPtToRoute(&result, current);
+			result.numPoints++;
+
+			if (distance(&dest, &current) == 1.0) {
+				return result;
+			}
 		}
 	}
 

@@ -69,13 +69,13 @@ namespace UnitTest1
             int result = Validdestination(&routeMap, dest);
 
             // Assert
-            Assert::AreEqual(1, result);
+            Assert::AreEqual(0, result);
         }
 
         TEST_METHOD(validdestination_25Y)
         {
             struct Map routeMap = populateMap();
-            char dest[] = "25Y"; // Building present
+            char dest[] = "12A"; // Building present
 
            
             int result = Validdestination(&routeMap, dest);
@@ -93,7 +93,7 @@ namespace UnitTest1
             int result = Validdestination(&routeMap, dest);
 
             
-            Assert::AreEqual(1, result);
+            Assert::AreEqual(0, result);
         }
 
         TEST_METHOD(validdestination_23U)
@@ -104,7 +104,7 @@ namespace UnitTest1
             int result = Validdestination(&routeMap, dest);
 
             
-            Assert::AreEqual(1, result);
+            Assert::AreEqual(0, result);
         }
     };
 
@@ -126,7 +126,7 @@ namespace UnitTest1
             Assert::AreEqual(-1, valid);
         }
         TEST_METHOD(getInput_validDestination) {
-            int valid = getInput(&testMap, NULL,"0 0 1A");
+            int valid = getInput(&testMap, NULL,"0 0 12A");
             Assert::IsTrue(valid);
         }
     };
@@ -236,5 +236,292 @@ namespace UnitTest1
             Assert::AreEqual(1, result);
         }
 
+    };
+}
+namespace IntegrationTest {
+    TEST_CLASS(IntegrationTest_getinput_check_valid) {
+
+    public:
+        TEST_METHOD(checkinput_1200_5_12A) {
+            //correct weight , size , destination
+            int weight = 1200;
+            double size = 5.0;
+            char dest[] = "12A";
+            int result = 0;
+            struct Map routeMap = populateMap();
+
+            if (validBoxWeight(weight) && checkBoxSize(size)) {
+                result = Validdestination(&routeMap, dest);
+            }
+
+            Assert::AreEqual(1, result);
+
+        }
+        TEST_METHOD(checkinput_1201_5_12A) {
+            // invalid weight . Expect fail input 
+            int weight = 1201;
+            double size = 5.0;
+            char dest[] = "12A";
+            int result = 0;
+            struct Map routeMap = populateMap();
+
+            if (validBoxWeight(weight) && checkBoxSize(size)) {
+                result = Validdestination(&routeMap, dest);
+            }
+
+            Assert::AreEqual(0, result);
+
+
+        }
+
+        TEST_METHOD(checkinput_1200_10_12A) {
+            // size is invalid -->expect fail
+            int weight = 1201;
+            double size = 10;
+            char dest[] = "12A";
+            int result = 0;
+            struct Map routeMap = populateMap();
+
+            if (validBoxWeight(weight) && checkBoxSize(size)) {
+                result = Validdestination(&routeMap, dest);
+            }
+
+            Assert::AreEqual(0, result);
+
+        }
+
+        TEST_METHOD(checkinput_1200_5_25A) {
+            // destination out of box --> expect fail
+            int weight = 1201;
+            double size = 10;
+            char dest[] = "25A";
+            int result = 0;
+
+            struct Map routeMap = populateMap();
+
+            if (validBoxWeight(weight) && checkBoxSize(size)) {
+                result = Validdestination(&routeMap, dest);
+            }
+
+            Assert::AreEqual(0, result);
+
+        }
+
+        TEST_METHOD(checkinput_1200_5_7J) {
+            //destination inside routemap but not building --> invalid destination
+            int weight = 1201;
+            double size = 10;
+            char dest[] = "7J";
+            int result = 0;
+
+            struct Map routeMap = populateMap();
+
+            if (validBoxWeight(weight) && checkBoxSize(size)) {
+                result = Validdestination(&routeMap, dest);
+            }
+
+            Assert::AreEqual(0, result);
+
+        }
+        TEST_METHOD(checkinput_500_0_12O) {
+            //all correct input , weight , size 0.5 , 120 inside box and building . Expect function pass
+            int weight = 500;
+            double size = 0.5;
+            char dest[] = "12O";
+            int result;
+
+            struct Map routeMap = populateMap();
+
+            if (validBoxWeight(weight) && checkBoxSize(size)) {
+                result = Validdestination(&routeMap, dest);
+            }
+
+            Assert::AreEqual(1, result);
+
+        }
+
+        TEST_METHOD(checkinput_1_1_22K) {
+            //all correct input , weight 1, size 1 , 22K inside box and building . Expect function pass
+            int weight = 1;
+            double size = 0.5;
+            char dest[] = "22K";
+            int result;
+
+            struct Map routeMap = populateMap();
+
+            if (validBoxWeight(weight) && checkBoxSize(size)) {
+                result = Validdestination(&routeMap, dest);
+            }
+
+            Assert::AreEqual(1, result);
+
+        }
+    };
+
+    TEST_CLASS(IntegrationTest_boxSize_truck) {
+
+    public:
+        TEST_METHOD(checkSize1_truck) {
+            struct PackageInf package = {0.0,1.0,NULL};
+            struct Truck truck = {0, 0.0,0.0, '\0' };
+            int result = 0;
+            if (checkBoxSize(package.m_boxSize)) {
+                result = checkSpaceOfTruck(package.m_boxSize, &truck);
+            }
+            Assert::AreEqual(1, result);
+        }
+        TEST_METHOD(checkSize2_truck) {
+            struct PackageInf package = { 0.0,2.0,NULL };
+            struct Truck truck = { 0, 0.0,0.0, '\0' };
+            int result = 0;
+            if (checkBoxSize(package.m_boxSize)) {
+                result = checkSpaceOfTruck(package.m_boxSize, &truck);
+            }
+            Assert::AreEqual(0, result);
+        }
+        TEST_METHOD(checkSize1_truckFull) {
+            struct PackageInf package = { 0.0,1.0,NULL };
+            struct Truck truck = { 0, 50,0.0, '\0' };
+            int result = 0;
+            if (checkBoxSize(package.m_boxSize)) {
+                result = checkSpaceOfTruck(package.m_boxSize, &truck);
+            }
+            Assert::AreEqual(0, result);
+        }
+        TEST_METHOD(checkSize05_truckHasSpace495) {
+            struct PackageInf package = { 0.0,0.5,NULL };
+            struct Truck truck = { 0, 49.5,0.0, '\0' };
+            int result = 0;
+            if (checkBoxSize(package.m_boxSize)) {
+                result = checkSpaceOfTruck(package.m_boxSize, &truck);
+            }
+            Assert::AreEqual(1, result);
+        }
+    };
+    TEST_CLASS(IntegrationTest_boxWeight_truck) {
+    public:
+        TEST_METHOD(checkWeightNegative_truck) {
+            struct PackageInf package = { -1.0,0.5,NULL };
+            struct Truck truck = { 0, 49.5,0.0, '\0' };
+            int result = 0;
+            if (validBoxWeight(package.m_weight)) {
+                result = checkWeight(&truck, &package);
+            }
+            Assert::AreEqual(0, result);
+        }
+        TEST_METHOD(checkWeight50_truckFull) {
+            struct PackageInf package = { 50.0,0.5,NULL };
+            struct Truck truck = { 0,0.0,1170, '\0' };
+            int result = 0;
+            if (validBoxWeight(package.m_weight)) {
+                result = checkWeight(&truck, &package);
+            }
+            Assert::AreEqual(0, result);
+        }
+        TEST_METHOD(checkWeight50_truckSpace) {
+            struct PackageInf package = { 50.0,0.5,NULL };
+            struct Truck truck = { 0, 49.5,1149, '\0' };
+            int result = 0;
+            if (validBoxWeight(package.m_weight)) {
+                result = checkWeight(&truck, &package);
+            }
+            Assert::AreEqual(1, result);
+        }
+        TEST_METHOD(checkWeight1300_truck) {
+            struct PackageInf package = { 1300.0,0.5,NULL };
+            struct Truck truck = { 0, 49.5,1149, '\0' };
+            int result = 0;
+            if (validBoxWeight(package.m_weight)) {
+                result = checkWeight(&truck, &package);
+            }
+            Assert::AreEqual(0, result);
+        }
+    };
+    TEST_CLASS(IntegrationTest_ClosestPointeFromRoute_ValidDestination) {
+    public:
+        TEST_METHOD(ValidDestination_ClosestPointeFromRoute){
+            char dest[] = "12A\0";
+            struct Point destinationPoint;
+            struct Point closestPoint;
+            struct Route blueRoute = getBlueRoute();
+            int result = 0;
+            struct Map routeMap = populateMap();
+            if (Validdestination(&routeMap, dest)) {
+                char copy[4] = { '\0' };
+                char c[3] = { '\0' };
+                strncpy_s(copy, dest, 3);
+                strncpy_s(c, dest, 2);
+                destinationPoint.row = atoi(c) - 1;
+                destinationPoint.col = copy[2] - 'A';
+                closestPoint = calcClosestPointeFromRoute(&blueRoute, &destinationPoint);
+                if ((int)closestPoint.row == 4 && (int)closestPoint.col == 0) {
+                    result = 1;
+                }
+            }
+            Assert::AreEqual(1, result);
+        }
+        TEST_METHOD(ValidDestinationFail_ClosestPointeFromRoute) {
+            char dest[] = "12Z\0";
+            struct Point destinationPoint;
+            struct Point closestPoint;
+            struct Route blueRoute = getBlueRoute();
+            int result = 0;
+            struct Map routeMap = populateMap();
+            if (Validdestination(&routeMap, dest)) {
+                char copy[4] = { '\0' };
+                char c[3] = { '\0' };
+                strncpy_s(copy, dest, 3);
+                strncpy_s(c, dest, 2);
+                destinationPoint.row = atoi(c) - 1;
+                destinationPoint.col = copy[2] - 'A';
+                closestPoint = calcClosestPointeFromRoute(&blueRoute, &destinationPoint);
+                if ((int)closestPoint.row == 4 && (int)closestPoint.col == 0) {
+                    result = 1;
+                }
+            }
+            Assert::AreEqual(0, result);
+        }
+        TEST_METHOD(ValidDestinationNotBuilding_ClosestPointeFromRoute) {
+            char dest[] = "11A\0";
+            struct Point destinationPoint;
+            struct Point closestPoint;
+            struct Route blueRoute = getBlueRoute();
+            int result = 0;
+            struct Map routeMap = populateMap();
+            if (Validdestination(&routeMap, dest)) {
+                char copy[4] = { '\0' };
+                char c[3] = { '\0' };
+                strncpy_s(copy, dest, 3);
+                strncpy_s(c, dest, 2);
+                destinationPoint.row = atoi(c) - 1;
+                destinationPoint.col = copy[2] - 'A';
+                closestPoint = calcClosestPointeFromRoute(&blueRoute, &destinationPoint);
+                if ((int)closestPoint.row == 4 && (int)closestPoint.col == 0) {
+                    result = 1;
+                }
+            }
+            Assert::AreEqual(0, result);
+        }
+        TEST_METHOD(ValidDestination_ClosestPointeFromRoute2) {
+            char dest[] = "22G\0";
+            struct Point destinationPoint;
+            struct Point closestPoint;
+            struct Route blueRoute = getBlueRoute();
+            int result = 0;
+            struct Map routeMap = populateMap();
+            if (Validdestination(&routeMap, dest)) {
+                char copy[4] = { '\0' };
+                char c[3] = { '\0' };
+                strncpy_s(copy, dest, 3);
+                strncpy_s(c, dest, 2);
+                destinationPoint.row = atoi(c) - 1;
+                destinationPoint.col = copy[2] - 'A';
+                closestPoint = calcClosestPointeFromRoute(&blueRoute, &destinationPoint);
+                if ((int)closestPoint.row == 17 && (int)closestPoint.col == 10) {
+                    result = 1;
+                }
+            }
+            Assert::AreEqual(1, result);
+        }
     };
 }

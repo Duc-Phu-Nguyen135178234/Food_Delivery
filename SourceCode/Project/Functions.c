@@ -7,7 +7,6 @@
 
 int getInput(const struct Map* routeMap, struct PackageInf* package, char* teststr) {
 	int valid = 0;
-	int exit = 0;
 	int weight = 0;
 	double boxSize = 0.0;
 	char dest[BUFFER];
@@ -20,11 +19,10 @@ int getInput(const struct Map* routeMap, struct PackageInf* package, char* tests
 
 				if (weight == 0 && boxSize == 0 && strcmp(dest, "x") == 0) {
 					printf("Thank you for shipping with Seneca!\n");
-					return 0;
-					exit = 1;
+					valid = -1;
 				}
 
-				if (!exit) {
+				if (valid != -1) {
 					if (!Validdestination(routeMap, dest))
 					{
 						printf("invalid destination\n");
@@ -32,6 +30,7 @@ int getInput(const struct Map* routeMap, struct PackageInf* package, char* tests
 					}
 					else {
 						valid = 1;
+						
 						package->m_destination = dest;
 
 						if (!checkBoxSize(boxSize)) {
@@ -53,8 +52,7 @@ int getInput(const struct Map* routeMap, struct PackageInf* package, char* tests
 						}
 					}
 				}
-			} while (!valid && !exit);
-			return 1;
+			} while (valid != 1 && valid != -1);
 		}
 		else {
 			if (teststr[0] != '\0') {
@@ -83,6 +81,7 @@ int getInput(const struct Map* routeMap, struct PackageInf* package, char* tests
 			}
 		}
 	}
+	fflush(stdin);
 	return valid;
 }
 
@@ -96,16 +95,16 @@ int isValidColumn(char column) {
 // check if correct format 8A 12A and map destination on routeMap return 1
 //if Destination out size the routeMap return 0
 
-int Validdestination(const struct Map * routeMap, const char* dest) {
+int Validdestination(const struct Map* routeMap, const char* dest) {
 	int len = strlen(dest);
 	int row;
 	char col;
 
-	if (len >= 2 && len <= 3) { 
+	if (len >= 2 && len <= 3) {
 		// Check if the last character is a letter
 		if (!isalpha(dest[len - 1])) return 0;
 
-	
+
 		row = atoi(dest); // Change this line to only convert the digits
 
 		// Extract the column letter part of the destination
@@ -115,17 +114,14 @@ int Validdestination(const struct Map * routeMap, const char* dest) {
 
 		if (!isValidColumn(col)) return 0; // if the column letter is out of range
 
-		
-		// Check if the square at the destination is occupied by a building
-		if (routeMap->squares[row - 1][col - 'A'] == 1) return 0;; // Building present
 
-		return 1; // Destination is valid and accessible
+		// Check if the square at the destination is occupied by a building
+		return (routeMap->squares[row - 1][col - 'A'] == 1) ? 1 : 0; // Building present
+
+		//return 1; // Destination is valid and accessible
 
 	}
-
-
 	return 0; // Destination format invalid
-
 }
 
 int checkSpaceOfTruck(int space, struct Truck* truck1) {
@@ -199,4 +195,17 @@ int validBoxWeight(int weight) {
 	else {
 		return 0;
 	}
+}
+
+void printPoint(const struct Point* point) {
+	printf("%c%c\n", point->row, point->col);
+}
+
+struct Point convertPoint(const char* pointText) {
+	struct Point point = {0,0};
+	return point;
+}
+
+void handleInnerPoint(struct Point* point) {
+	;
 }
