@@ -11,7 +11,7 @@
 #define SIZE2 1.0
 #define SIZE3 5.0
 
-#define DESTINATIONS 2 //TOGGLE ROUTES HERE
+#define DESTINATIONS 3 //TOGGLE ROUTES HERE
 
 struct PackageInf {
 	double m_weight;  

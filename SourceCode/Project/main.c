@@ -22,10 +22,11 @@ int main(void)
 	struct Route blueRoute = getBlueRoute();
 	struct Route greenRoute = getGreenRoute();
 	struct Route yellowRoute = getYellowRoute();
-	struct Route routes[2] = { blueRoute, greenRoute };
+	struct Route routes[DESTINATIONS] = { blueRoute, greenRoute,yellowRoute};
 	struct Route selectedRoute;
 	struct Map routeMap = addRoute(&baseMap, &blueRoute);
 	routeMap = addRoute(&routeMap, &greenRoute);
+	routeMap = addRoute(&routeMap, &yellowRoute);
 
 
 	printMap(&routeMap, 1, 1);
@@ -84,6 +85,9 @@ int main(void)
 			}
 			else if (index == 1) {
 				printf("Ship on GREEN LINE, divert: ", row + 1, c);
+			}
+			else if (index == 2) {
+				printf("Ship on YELLOW LINE, divert: ", row + 1, c);
 			}
 			for (int i = 0; i < route.numPoints; i++) {
 				int col = route.points[i].col;
