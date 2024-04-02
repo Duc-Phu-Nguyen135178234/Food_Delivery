@@ -3,6 +3,7 @@
 #include <string.h>
 #include <stdlib.h>
 #include "Functions.h"
+#include "mapping.h"
 #include "data.h"
 
 int getInput(const struct Map* routeMap, struct PackageInf* package, char* teststr) {
@@ -206,6 +207,223 @@ struct Point convertPoint(const char* pointText) {
 	return point;
 }
 
-void handleInnerPoint(struct Point* point) {
-	;
+int handleInnerPoint(struct Point* point, struct Map* map, struct Point* start) {
+	const int max = 10;
+	struct Point testPoint;
+	testPoint.col = point->col;
+	testPoint.row = point->row;
+	//printf("Final Point: (%d, %d)\n", point->row, point->col);
+	double close[4] = {0.0};
+	double close2[3] = { 0.0 };
+	double smallest, smallest2;
+	int found = 0, k = 0;
+	int index = 0, index2 = 0;
+	int shift = 0, shift2 = 0;
+	int row = point->row;
+	int col = point->col;
+	//row--;
+	//col--;
+
+	// Check if the point is surrounded by 1s
+	if (map->squares[row - 1][col] == 1 &&
+		map->squares[row][col - 1] == 1 &&
+		map->squares[row][col + 1] == 1 &&
+		map->squares[row + 1][col] == 1) {
+
+		//Clockwise
+		testPoint.row--;
+		close[0] = distance(&testPoint, start);
+		testPoint.row++;
+		testPoint.col++;
+		close[1] = distance(&testPoint, start);
+		testPoint.col--;
+		testPoint.row++;
+		close[2] = distance(&testPoint, start);
+		testPoint.row--;
+		testPoint.col--;
+		close[3] = distance(&testPoint, start);
+		testPoint.col++;
+
+		smallest = close[0];
+		index = 0;
+		for (int i = 1; i < 4; i++) {
+			if (smallest > close[i]) {
+				smallest = close[i];
+				index = i;
+			}
+		}
+		for (int j = 0;j < 4;j++) {
+			if (close[j] != close[index]) {
+				close2[k] = close[j];
+				k++;
+			}
+		}
+		smallest2 = close2[0];
+		for (int i = 1; i < 3; i++) {
+			if (smallest2 > close2[i]) {
+				smallest2 = close2[i];
+				index2 = i;
+			}
+		}
+		if (index2 == 1) {
+			index2 = 2;
+		}
+
+		if (index == 0) {
+			for (int i = 1; i < max && !found; i++) {
+				if (map->squares[row - i][col] == 0) {
+					found = 1;
+				}
+				else {
+					shift--;
+				}
+			}
+			found = 0;
+			if (index2 == 0) {
+				for (int i = 1; i < max && !found; i++) {
+					if (map->squares[row][col + i] == 0) {
+						found = 1;
+					}
+					else {
+						shift2++;
+					}
+				}
+			}
+			else if (index2 == 2) {
+				for (int i = 1; i < max && !found; i++) {
+					if (map->squares[row][col - i] == 0) {
+						found = 1;
+					}
+					else {
+						shift2--;
+					}
+				}
+			}
+			if(abs(shift) < abs(shift2)) {
+				point->row += shift;
+			}
+			else {
+				point->col += shift2;
+			}
+		
+		}
+		else if (index == 1) {
+			for (int i = 1; i < max && !found; i++) {
+				if (map->squares[row][col + i] == 0) {
+					found = 1;
+				}
+				else {
+					shift++;
+				}
+			}
+			found = 0;
+			if (index2 == 0) {
+				for (int i = 1; i < max && !found; i++) {
+					if (map->squares[row - i][col] == 0) {
+						found = 1;
+					}
+					else {
+						shift2--;
+					}
+				}
+			}
+			else if (index2 == 2) {
+				for (int i = 1; i < max && !found; i++) {
+					if (map->squares[row + i][col] == 0) {
+						found = 1;
+					}
+					else {
+						shift2++;
+					}
+				}
+			}
+			if (abs(shift) < abs(shift2)) {
+				point->col += shift;
+			}
+			else {
+				point->row += shift2;
+			}
+		}
+		else if (index == 2) {
+			for (int i = 1; i < max && !found; i++) {
+				if (map->squares[row + i][col] == 0) {
+					found = 1;
+				}
+				else {
+					shift++;
+				}
+			}
+			found = 0;
+			if (index2 == 0) {
+				for (int i = 1; i < max && !found; i++) {
+					if (map->squares[row][col - i] == 0) {
+						found = 1;
+					}
+					else {
+						shift2--;
+					}
+				}
+			}
+			else if (index2 == 2) {
+				for (int i = 1; i < max && !found; i++) {
+					if (map->squares[row][col + i] == 0) {
+						found = 1;
+					}
+					else {
+						shift2++;
+					}
+				}
+			}
+			if (abs(shift) < abs(shift2)) {
+				point->row += shift;
+			}
+			else {
+				point->col += shift2;
+			}
+		}
+		else if (index == 3) {
+			for (int i = 1; i < max && !found; i++) {
+				if (map->squares[row][col-1] == 0) {
+					found = 1;
+				}
+				else {
+					shift++;
+				}
+			}
+			found = 0;
+			if (index2 == 0) {
+				for (int i = 1; i < max && !found; i++) {
+					if (map->squares[row+i][col] == 0) {
+						found = 1;
+					}
+					else {
+						shift2++;
+					}
+				}
+			}
+			else if (index2 == 2) {
+				for (int i = 1; i < max && !found; i++) {
+					if (map->squares[row-i][col] == 0) {
+						found = 1;
+					}
+					else {
+						shift2--;
+					}
+				}
+			}
+			if (abs(shift) < abs(shift2)) {
+				point->col += shift;
+			}
+			else {
+				point->row += shift2;
+			}
+		}
+		return 1;
+	}
+	else {
+		return 0;
+	}
+
+	// Print out the final point
+	printf("Final Point: (%d, %d)\n", point->row, point->col);
 }

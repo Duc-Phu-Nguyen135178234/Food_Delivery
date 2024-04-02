@@ -57,5 +57,5 @@ void printPoint(const struct Point* point);
 
 struct Point convertPoint(const char* pointText);
 
-void handleInnerPoint(struct Point* point);
+int handleInnerPoint(struct Point* point, struct Map* map, struct Point* start);
 #endif //SENECA_DELIVERY_H

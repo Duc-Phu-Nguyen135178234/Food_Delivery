@@ -20,6 +20,7 @@ int main(void)
 	struct Route blueRoute = getBlueRoute();
 	struct Map routeMap = addRoute(&baseMap, &blueRoute);
 
+
 	printMap(&routeMap, 1, 1);
 
 	struct Point p1 = { 6, 0 };
@@ -27,6 +28,7 @@ int main(void)
 	double dist = distance(&p1, &p2);
 
 	do {
+		//convert point string to point struct
 		flag = getInput(&routeMap, &currentPackage, NULL);
 		if (flag != -1) {
 			if (strlen(currentPackage.m_destination) == 2) {
@@ -47,12 +49,16 @@ int main(void)
 			}
 			for (int i = 0; i < 1; i++) { // ONE ROUTE ONLY FOR NOW
 				closestPoint = calcClosestPointeFromRoute(&blueRoute, &destinationPoint);
+				// Handle inner point
+				handleInnerPoint(&destinationPoint, &routeMap, &closestPoint);
 				//printPoint(&closestPoint);
 				int col = closestPoint.col;
 				int row = closestPoint.row;
 				char c = col + 'A';
-				char r = row;
-				printf("Starting point: %d%c\n", row + 1, c);
+				int col2 = destinationPoint.col;
+				int row2 = destinationPoint.row;
+				char c2 = col2 + 'A';
+				printf("Starting point: %d%c. Destination(handled point): %d%c\n", row + 1, c, row2+1, c2);
 				struct Route route = shortestPath(&routeMap, closestPoint, destinationPoint);
 				printf("On BLUE route DIVERT: ", row + 1, c);
 
