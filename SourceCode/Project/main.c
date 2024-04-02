@@ -11,14 +11,21 @@ int main(void)
 	int flag = 0;
 	struct PackageInf currentPackage;
 	struct Point destinationPoint;
-	struct Point closestPoint;
+	//struct Point closestPoint;
+	double distances[DESTINATIONS];
+	struct Point closestPoints[DESTINATIONS];
 	struct Truck truck1 = { 0, 0.0, 0.0, BLUE };
 	struct Truck truck2 = { 0, 0.0, 0.0, YELLOW };
 	struct Truck truck3 = { 0, 0.0, 0.0, GREEN };
 	struct Truck trucks[3] = { truck1, truck2, truck3 };
 	struct Map baseMap = populateMap();
 	struct Route blueRoute = getBlueRoute();
+	struct Route greenRoute = getGreenRoute();
+	struct Route yellowRoute = getYellowRoute();
+	struct Route routes[2] = { blueRoute, greenRoute };
+	struct Route selectedRoute;
 	struct Map routeMap = addRoute(&baseMap, &blueRoute);
+	routeMap = addRoute(&routeMap, &greenRoute);
 
 
 	printMap(&routeMap, 1, 1);
@@ -47,30 +54,45 @@ int main(void)
 				destinationPoint.row = atoi(c) - 1;
 				destinationPoint.col = copy[2] - 'A';
 			}
-			for (int i = 0; i < 1; i++) { // ONE ROUTE ONLY FOR NOW
-				closestPoint = calcClosestPointeFromRoute(&blueRoute, &destinationPoint);
-				// Handle inner point
-				handleInnerPoint(&destinationPoint, &routeMap, &closestPoint);
-				//printPoint(&closestPoint);
-				int col = closestPoint.col;
-				int row = closestPoint.row;
+			for (int i = 0; i < DESTINATIONS; i++) { // ONE ROUTE ONLY FOR NOW
+				closestPoints[i] = calcClosestPointeFromRoute(&routes[i], &destinationPoint);
+			}
+			for (int i = 0; i < DESTINATIONS; i++) {
+				distances[i] = distance(&closestPoints[i], distances);
+			}
+			int index = 0;
+			double smallest = distances[0];
+			for (int i = 0; i < DESTINATIONS; i++) {
+				if (smallest > distances[i]) {
+					smallest = distances[i];
+					index = i;
+				}
+			}
+			selectedRoute = routes[index];
+			
+			int check = handleInnerPoint(&destinationPoint, &routeMap, &closestPoints[index]);
+			int col = closestPoints[index].col;
+			int row = closestPoints[index].row;
+			char c = col + 'A';
+			int col2 = destinationPoint.col;
+			int row2 = destinationPoint.row;
+			char c2 = col2 + 'A';
+			printf("Starting point: %d%c. Destination: %d%c\n", row + 1, c, row2+1, c2);
+			struct Route route = shortestPath(&routeMap, closestPoints[index], destinationPoint);
+			if (index == 0) {
+				printf("Ship on BLUE LINE, divert: ", row + 1, c);
+			}
+			else if (index == 1) {
+				printf("Ship on GREEN LINE, divert: ", row + 1, c);
+			}
+			for (int i = 0; i < route.numPoints; i++) {
+				int col = route.points[i].col;
+				int row = route.points[i].row;
 				char c = col + 'A';
-				int col2 = destinationPoint.col;
-				int row2 = destinationPoint.row;
-				char c2 = col2 + 'A';
-				printf("Starting point: %d%c. Destination(handled point): %d%c\n", row + 1, c, row2+1, c2);
-				struct Route route = shortestPath(&routeMap, closestPoint, destinationPoint);
-				printf("On BLUE route DIVERT: ", row + 1, c);
-
-				for (int i = 0; i < route.numPoints; i++) {
-					int col = route.points[i].col;
-					int row = route.points[i].row;
-					char c = col + 'A';
-					char r = row;
-					if (!col && !row) {}
-					else {
-						printf("%d%c, ", row + 1, c);
-					}
+				char r = row;
+				if (!col && !row) {}
+				else {
+					printf("%d%c, ", row + 1, c);
 				}
 			}
 			putchar('\n');
