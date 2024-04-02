@@ -299,7 +299,7 @@ int handleInnerPoint(struct Point* point, struct Map* map, struct Point* start) 
 					}
 				}
 			}
-			if(abs(shift) < abs(shift2)) {
+			if(abs(shift) <= abs(shift2)) {
 				point->row += shift;
 			}
 			else {
@@ -411,7 +411,7 @@ int handleInnerPoint(struct Point* point, struct Map* map, struct Point* start) 
 					}
 				}
 			}
-			if (abs(shift) < abs(shift2)) {
+			if (abs(shift) <= abs(shift2)) {
 				point->col += shift;
 			}
 			else {
