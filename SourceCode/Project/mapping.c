@@ -240,7 +240,7 @@ struct Route shortestPath(const struct Map* map, const struct Point start, const
 			addPtToRoute(&result, current);
 			result.numPoints++;
 
-			if (distance(&dest, &current) == 1.0) {
+			if (distance(&dest, &current) <= 1.5) {
 				return result;
 			}
 		}
