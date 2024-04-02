@@ -15,8 +15,8 @@ int main(void)
 	double distances[DESTINATIONS];
 	struct Point closestPoints[DESTINATIONS];
 	struct Truck truck1 = { 0, 0.0, 0.0, BLUE };
-	struct Truck truck2 = { 0, 0.0, 0.0, YELLOW };
-	struct Truck truck3 = { 0, 0.0, 0.0, GREEN };
+	struct Truck truck2 = { 0, 0.0, 0.0, GREEN };
+	struct Truck truck3 = { 0, 0.0, 0.0, YELLOW };
 	struct Truck trucks[3] = { truck1, truck2, truck3 };
 	struct Map baseMap = populateMap();
 	struct Route blueRoute = getBlueRoute();
@@ -59,7 +59,7 @@ int main(void)
 				closestPoints[i] = calcClosestPointeFromRoute(&routes[i], &destinationPoint);
 			}
 			for (int i = 0; i < DESTINATIONS; i++) {
-				distances[i] = distance(&closestPoints[i], distances);
+				distances[i] = distance(&closestPoints[i], &destinationPoint);
 			}
 			int index = 0;
 			double smallest = distances[0];
