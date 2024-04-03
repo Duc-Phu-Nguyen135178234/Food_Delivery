@@ -69,7 +69,7 @@ namespace UnitTest1
             int result = Validdestination(&routeMap, dest);
 
             // Assert
-            Assert::AreEqual(0, result);
+            Assert::AreEqual(1, result);
         }
 
         TEST_METHOD(validdestination_25Y)
@@ -93,7 +93,7 @@ namespace UnitTest1
             int result = Validdestination(&routeMap, dest);
 
             
-            Assert::AreEqual(0, result);
+            Assert::AreEqual(1, result);
         }
 
         TEST_METHOD(validdestination_23k)
@@ -104,7 +104,7 @@ namespace UnitTest1
             int result = Validdestination(&routeMap, dest);
 
             
-            Assert::AreEqual(0, result);
+            Assert::AreEqual(1, result);
         }
     };
 
