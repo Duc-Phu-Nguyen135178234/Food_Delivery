@@ -3,27 +3,27 @@
 #include <string.h>
 #include <stdlib.h>
 #include "Functions.h"
+#include "mapping.h"
 #include "data.h"
 
-int getInput(const struct Map* routeMap, char* teststr) {
+int getInput(const struct Map* routeMap, struct PackageInf* package, char* teststr) {
 	int valid = 0;
-	int exit = 0;
 	int weight = 0;
 	double boxSize = 0.0;
 	char dest[BUFFER];
 	if (routeMap != NULL) {
 		if (teststr == NULL) {
-			
 			do {
 				printf("Enter shipment weight, box size and destination (0 0 x to stop): ");
 				scanf("%d %lf %s", &weight, &boxSize, &dest);
 				dest[strlen(dest)] = '\0';
 
 				if (weight == 0 && boxSize == 0 && strcmp(dest, "x") == 0) {
-					exit = 1;
+					printf("Thank you for shipping with Seneca!\n");
+					valid = -1;
 				}
 
-				if (!exit) {
+				if (valid != -1) {
 					if (!Validdestination(routeMap, dest))
 					{
 						printf("invalid destination\n");
@@ -32,21 +32,28 @@ int getInput(const struct Map* routeMap, char* teststr) {
 					else {
 						valid = 1;
 						
-						if (checkBoxSize(boxSize)) {
-							valid = 1;
-						}
-						else {
+						package->m_destination = dest;
+
+						if (!checkBoxSize(boxSize)) {
 							valid = 0;
 							printf("Invalid size\n");
 						}
-					}
-					
-				}
-				//checkWeight(truck, package);
+						else {
+							valid = 1;
+							package->m_boxSize = boxSize;
 
-				//checkSpaceOfTruck()
-			
-			} while (!valid && !exit);
+							if (!validBoxWeight(weight)) {
+								valid = 0;
+								printf("Invalid weight (must be 1-1200 Kg.)\n");
+							}
+							else {
+								valid = 1;
+								package->m_weight = weight;
+							}
+						}
+					}
+				}
+			} while (valid != 1 && valid != -1);
 		}
 		else {
 			if (teststr[0] != '\0') {
@@ -75,7 +82,7 @@ int getInput(const struct Map* routeMap, char* teststr) {
 			}
 		}
 	}
-	printf("Thank you for shipping with Seneca!\n");
+	fflush(stdin);
 	return valid;
 }
 
@@ -89,16 +96,16 @@ int isValidColumn(char column) {
 // check if correct format 8A 12A and map destination on routeMap return 1
 //if Destination out size the routeMap return 0
 
-int Validdestination(const struct Map * routeMap, const char* dest) {
+int Validdestination(const struct Map* routeMap, const char* dest) {
 	int len = strlen(dest);
 	int row;
 	char col;
 
-	if (len >= 2 && len <= 3) { 
+	if (len >= 2 && len <= 3) {
 		// Check if the last character is a letter
 		if (!isalpha(dest[len - 1])) return 0;
 
-	
+
 		row = atoi(dest); // Change this line to only convert the digits
 
 		// Extract the column letter part of the destination
@@ -108,17 +115,14 @@ int Validdestination(const struct Map * routeMap, const char* dest) {
 
 		if (!isValidColumn(col)) return 0; // if the column letter is out of range
 
-		
-		// Check if the square at the destination is occupied by a building
-		if (routeMap->squares[row - 1][col - 'A'] == 1) return 0;; // Building present
 
-		return 1; // Destination is valid and accessible
+		// Check if the square at the destination is occupied by a building
+		return (routeMap->squares[row - 1][col - 'A'] == 1) ? 1 : 0; // Building present
+
+		//return 1; // Destination is valid and accessible
 
 	}
-
-
 	return 0; // Destination format invalid
-
 }
 
 int checkSpaceOfTruck(int space, struct Truck* truck1) {
@@ -135,10 +139,7 @@ int checkSpaceOfTruck(int space, struct Truck* truck1) {
 
 
 int checkBoxSize(double shipmentSize) {
-    
-    //const double size1 = 0.5;
-    //const double size2 = 1.0;
-    //const double size3 = 5.0;
+
     int result = 0;
 
     if (shipmentSize == SIZE1 || shipmentSize == SIZE2 || shipmentSize == SIZE3) {
@@ -176,7 +177,6 @@ struct Point calcClosestPointeFromRoute(const struct Route* r1, struct Point* de
 	int index = 0;
 	for (i = 0; i < r1->numPoints; i++) {
 		results[i] = distance(&r1->points[i], dest);
-		//printf("%lf\n", results[i]);
 	}
 	min = results[0];
 	for (i = 0; i < r1->numPoints; i++) {
@@ -185,6 +185,245 @@ struct Point calcClosestPointeFromRoute(const struct Route* r1, struct Point* de
 			index = i;
 		}
 	}
-	printf("%d\n", index + 1);
+	//printf("%d\n", index + 1);
 	return r1->points[index];
+}
+
+int validBoxWeight(int weight) {
+	if (weight <= HIGH_WEIGHT && weight >= LOW_WEIGHT) {
+		return 1;
+	}
+	else {
+		return 0;
+	}
+}
+
+void printPoint(const struct Point* point) {
+	printf("%c%c\n", point->row, point->col);
+}
+
+struct Point convertPoint(const char* pointText) {
+	struct Point point = {0,0};
+	return point;
+}
+
+int handleInnerPoint(struct Point* point, struct Map* map, struct Point* start) {
+	const int max = 10;
+	struct Point testPoint;
+	testPoint.col = point->col;
+	testPoint.row = point->row;
+	//printf("Final Point: (%d, %d)\n", point->row, point->col);
+	double close[4] = {0.0};
+	double close2[3] = { 0.0 };
+	double smallest, smallest2;
+	int found = 0, k = 0;
+	int index = 0, index2 = 0;
+	int shift = 0, shift2 = 0;
+	int row = point->row;
+	int col = point->col;
+	//row--;
+	//col--;
+
+	// Check if the point is surrounded by 1s
+	if (map->squares[row - 1][col] == 1 &&
+		map->squares[row][col - 1] == 1 &&
+		map->squares[row][col + 1] == 1 &&
+		map->squares[row + 1][col] == 1) {
+
+		//Clockwise
+		testPoint.row--;
+		close[0] = distance(&testPoint, start);
+		testPoint.row++;
+		testPoint.col++;
+		close[1] = distance(&testPoint, start);
+		testPoint.col--;
+		testPoint.row++;
+		close[2] = distance(&testPoint, start);
+		testPoint.row--;
+		testPoint.col--;
+		close[3] = distance(&testPoint, start);
+		testPoint.col++;
+
+		smallest = close[0];
+		index = 0;
+		for (int i = 1; i < 4; i++) {
+			if (smallest > close[i]) {
+				smallest = close[i];
+				index = i;
+			}
+		}
+		for (int j = 0;j < 4;j++) {
+			if (close[j] != close[index]) {
+				close2[k] = close[j];
+				k++;
+			}
+		}
+		smallest2 = close2[0];
+		for (int i = 1; i < 3; i++) {
+			if (smallest2 > close2[i]) {
+				smallest2 = close2[i];
+				index2 = i;
+			}
+		}
+		if (index2 == 1) {
+			index2 = 2;
+		}
+
+		if (index == 0) {
+			for (int i = 1; i < max && !found; i++) {
+				if (map->squares[row - i][col] == 0) {
+					found = 1;
+				}
+				else {
+					shift--;
+				}
+			}
+			found = 0;
+			if (index2 == 0) {
+				for (int i = 1; i < max && !found; i++) {
+					if (map->squares[row][col + i] == 0) {
+						found = 1;
+					}
+					else {
+						shift2++;
+					}
+				}
+			}
+			else if (index2 == 2) {
+				for (int i = 1; i < max && !found; i++) {
+					if (map->squares[row][col - i] == 0) {
+						found = 1;
+					}
+					else {
+						shift2--;
+					}
+				}
+			}
+			if(abs(shift) <= abs(shift2)) {
+				point->row += shift;
+			}
+			else {
+				point->col += shift2;
+			}
+		
+		}
+		else if (index == 1) {
+			for (int i = 1; i < max && !found; i++) {
+				if (map->squares[row][col + i] == 0) {
+					found = 1;
+				}
+				else {
+					shift++;
+				}
+			}
+			found = 0;
+			if (index2 == 0) {
+				for (int i = 1; i < max && !found; i++) {
+					if (map->squares[row - i][col] == 0) {
+						found = 1;
+					}
+					else {
+						shift2--;
+					}
+				}
+			}
+			else if (index2 == 2) {
+				for (int i = 1; i < max && !found; i++) {
+					if (map->squares[row + i][col] == 0) {
+						found = 1;
+					}
+					else {
+						shift2++;
+					}
+				}
+			}
+			if (abs(shift) <= abs(shift2)) {
+				point->col += shift;
+			}
+			else {
+				point->row += shift2;
+			}
+		}
+		else if (index == 2) {
+			for (int i = 1; i < max && !found; i++) {
+				if (map->squares[row + i][col] == 0) {
+					found = 1;
+				}
+				else {
+					shift++;
+				}
+			}
+			found = 0;
+			if (index2 == 0) {
+				for (int i = 1; i < max && !found; i++) {
+					if (map->squares[row][col - i] == 0) {
+						found = 1;
+					}
+					else {
+						shift2--;
+					}
+				}
+			}
+			else if (index2 == 2) {
+				for (int i = 1; i < max && !found; i++) {
+					if (map->squares[row][col + i] == 0) {
+						found = 1;
+					}
+					else {
+						shift2++;
+					}
+				}
+			}
+			if (abs(shift) <= abs(shift2)) {
+				point->row += shift;
+			}
+			else {
+				point->col += shift2;
+			}
+		}
+		else if (index == 3) {
+			for (int i = 1; i < max && !found; i++) {
+				if (map->squares[row][col-1] == 0) {
+					found = 1;
+				}
+				else {
+					shift++;
+				}
+			}
+			found = 0;
+			if (index2 == 0) {
+				for (int i = 1; i < max && !found; i++) {
+					if (map->squares[row+i][col] == 0) {
+						found = 1;
+					}
+					else {
+						shift2++;
+					}
+				}
+			}
+			else if (index2 == 2) {
+				for (int i = 1; i < max && !found; i++) {
+					if (map->squares[row-i][col] == 0) {
+						found = 1;
+					}
+					else {
+						shift2--;
+					}
+				}
+			}
+			if (abs(shift) <= abs(shift2)) {
+				point->col += shift;
+			}
+			else {
+				point->row += shift2;
+			}
+		}
+		return 1;
+	}
+	else {
+		return 0;
+	}
+
+	// Print out the final point
+	printf("Final Point: (%d, %d)\n", point->row, point->col);
 }
