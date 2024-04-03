@@ -59,11 +59,11 @@ namespace UnitTest1
     public:
 
 
-        TEST_METHOD(validdestination_2B)
+        TEST_METHOD(Blackbox_validdestination_2B)
 
         {
             struct Map routeMap = populateMap();
-            char dest[] = "2B";
+            char dest[] = "2B"; //Min of row check
 
 
             int result = Validdestination(&routeMap, dest);
@@ -72,10 +72,10 @@ namespace UnitTest1
             Assert::AreEqual(1, result);
         }
 
-        TEST_METHOD(validdestination_25Y)
+        TEST_METHOD(Blackbox_validdestination_8Y)
         {
             struct Map routeMap = populateMap();
-            char dest[] = "12A"; // Building present
+            char dest[] = "8Y"; //Max of column checking
 
 
             int result = Validdestination(&routeMap, dest);
@@ -84,10 +84,10 @@ namespace UnitTest1
             Assert::AreEqual(1, result);
         }
 
-        TEST_METHOD(validdestination_13M)
+        TEST_METHOD(Blackbox_validdestination_25B)
         {
             struct Map routeMap = populateMap();
-            char dest[] = "13M"; // out range
+            char dest[] = "25B"; //Max row checking
 
 
             int result = Validdestination(&routeMap, dest);
@@ -96,15 +96,70 @@ namespace UnitTest1
             Assert::AreEqual(1, result);
         }
 
-        TEST_METHOD(validdestination_23k)
+        TEST_METHOD(Blackbox_validdestination_14A)
         {
             struct Map routeMap = populateMap();
-            char dest[] = "23K"; // Building present
+            char dest[] = "14A"; // Building present
 
             int result = Validdestination(&routeMap, dest);
 
             
             Assert::AreEqual(1, result);
+        }
+
+        TEST_METHOD(Blackbox_validdestination_16M)
+        {
+            struct Map routeMap = populateMap();
+            char dest[] = "16M"; // Valid inside map and present a Building have address
+
+            int result = Validdestination(&routeMap, dest);
+
+
+            Assert::AreEqual(1, result);
+        }
+
+        TEST_METHOD(Whitebox_validdestination_24F)
+        {
+            struct Map routeMap = populateMap();
+            char dest[] = "24F"; // Valid inside map and present a Building have address
+
+            int result = Validdestination(&routeMap, dest);
+
+
+            Assert::AreEqual(1, result);
+        }
+
+        TEST_METHOD(Whitebox_validdestination_30F)
+        {
+            struct Map routeMap = populateMap();
+            char dest[] = "30F"; //Out of map
+
+            int result = Validdestination(&routeMap, dest);
+
+
+            Assert::AreEqual(0, result);
+        }
+
+        TEST_METHOD(Whitebox_validdestination_10H)
+        {
+            struct Map routeMap = populateMap();
+            char dest[] = "10H"; // Inside map but it is not present a Building.
+
+            int result = Validdestination(&routeMap, dest);
+
+
+            Assert::AreEqual(0, result);
+        }
+
+        TEST_METHOD(Whitebox_validdestination_17F)
+        {
+            struct Map routeMap = populateMap();
+            char dest[] = "17F"; // Inside map but it is not present a Building.
+
+            int result = Validdestination(&routeMap, dest);
+
+
+            Assert::AreEqual(0, result);
         }
     };
 
