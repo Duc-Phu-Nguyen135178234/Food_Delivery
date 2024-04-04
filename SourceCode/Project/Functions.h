@@ -52,7 +52,7 @@ struct Point calcClosestPointeFromRoute(const struct Route* r1, struct Point* de
 
 int validBoxWeight(int weight);
 
-void printPoint(const struct Point* point);
+void printPoint(const struct Point* point, int end);
 
 struct Point convertPoint(const struct PackageInf* currentPackage);
 

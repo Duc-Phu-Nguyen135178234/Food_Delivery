@@ -103,9 +103,14 @@ int main(void)
 			else if (divert.numPoints == -1){}
 			else {
 				printf(" divert: ");
-				printPoint(&closestPoints[index]);
+				printPoint(&closestPoints[index],0);
 				for (i = 0; i < divert.numPoints; i++) {
-					printPoint(&divert.points[i]);
+					if (i + 1 == divert.numPoints) {
+						printPoint(&divert.points[i], 1);
+					}
+					else {
+						printPoint(&divert.points[i], 0);
+					}
 				}
 			}
 			putchar('\n');
