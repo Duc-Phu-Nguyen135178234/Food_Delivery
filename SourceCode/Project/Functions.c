@@ -11,47 +11,56 @@ int getInput(const struct Map* routeMap, struct PackageInf* package, char* tests
 	int weight = 0;
 	double boxSize = 0.0;
 	char dest[BUFFER];
+	char buffer[BUFFER];
 	if (routeMap != NULL) {
 		if (teststr == NULL) {
 			do {
 				printf("Enter shipment weight, box size and destination (0 0 x to stop): ");
-				scanf("%d %lf %s", &weight, &boxSize, &dest);
-				dest[strlen(dest)] = '\0';
+				if (scanf("%d %lf %s", &weight, &boxSize, &dest) == 3) {
+					while (getchar() != '\n');
+					dest[strlen(dest)] = '\0';
 
-				if (weight == 0 && boxSize == 0 && strcmp(dest, "x") == 0) {
-					printf("Thank you for shipping with Seneca!\n");
-					valid = -1;
-				}
-
-				if (valid != -1) {
-					if (!Validdestination(routeMap, dest))
-					{
-						printf("invalid destination\n");
-						valid = 0;
+					if (weight == 0 && boxSize == 0 && strcmp(dest, "x") == 0) {
+						printf("Thank you for shipping with Seneca!\n");
+						valid = -1;
 					}
-					else {
-						valid = 1;
-						
-						package->m_destination = dest;
 
-						if (!checkBoxSize(boxSize)) {
+					if (valid != -1) {
+						if (!Validdestination(routeMap, dest))
+						{
+							printf("invalid destination\n");
 							valid = 0;
-							printf("Invalid size\n");
 						}
 						else {
 							valid = 1;
-							package->m_boxSize = boxSize;
 
-							if (!validBoxWeight(weight)) {
+							package->m_destination = dest;
+
+							if (!checkBoxSize(boxSize)) {
 								valid = 0;
-								printf("Invalid weight (must be 1-1200 Kg.)\n");
+								printf("Invalid size\n");
 							}
 							else {
 								valid = 1;
-								package->m_weight = weight;
+								package->m_boxSize = boxSize;
+
+								if (!validBoxWeight(weight)) {
+									valid = 0;
+									printf("Invalid weight (must be 1-1200 Kg.)\n");
+								}
+								else {
+									valid = 1;
+									package->m_weight = weight;
+								}
 							}
 						}
 					}
+				}
+				else {
+					puts("Enter correct values");
+					fflush(stdin);
+					while (getchar() != '\n');
+					valid = 0;
 				}
 			} while (valid != 1 && valid != -1);
 		}
