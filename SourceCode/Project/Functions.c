@@ -125,7 +125,7 @@ int Validdestination(const struct Map* routeMap, const char* dest) {
 	return 0; // Destination format invalid
 }
 
-int checkSpaceOfTruck(int space, struct Truck* truck1) {
+int checkSpaceOfTruck(double space, struct Truck* truck1) {
 	if (truck1->m_totalSpace + space > BOX_SPACE) {
 
 		printf("Error: The total space of the truck cannot exceed %d cubic meters.\n", BOX_SPACE);
@@ -167,6 +167,7 @@ int checkWeight(struct Truck* truck, struct PackageInf* package) {
 		return 0; // Cannot add package without exceeding limit, return false
 	}
 	else {
+		truck->m_totalWeight += package->m_weight;
 		return 1; // Can safely add package, return true
 	}
 }
@@ -202,9 +203,26 @@ void printPoint(const struct Point* point) {
 	printf("%c%c\n", point->row, point->col);
 }
 
-struct Point convertPoint(const char* pointText) {
-	struct Point point = {0,0};
-	return point;
+struct Point convertPoint(const struct PackageInf* currentPackage) {
+	struct Point destinationPoint;
+	if (strlen(currentPackage->m_destination) == 2) {
+		char copy[3] = { '\0' };
+		char c[2] = { '\0' };
+		strncpy(copy, currentPackage->m_destination, 2);
+		strncpy(c, copy, 1);
+		destinationPoint.row = atoi(c) - 1;
+		destinationPoint.col = copy[1] - 'A';
+	}
+	else if (strlen(currentPackage->m_destination) == 3) {
+		char copy[4] = { '\0' };
+		char c[3] = { '\0' };
+		strncpy(copy, currentPackage->m_destination, 3);
+		strncpy(c, copy, 2);
+		destinationPoint.row = atoi(c) - 1;
+		destinationPoint.col = copy[2] - 'A';
+	}
+
+	return destinationPoint;
 }
 
 int handleInnerPoint(struct Point* point, struct Map* map, struct Point* start) {
@@ -212,17 +230,14 @@ int handleInnerPoint(struct Point* point, struct Map* map, struct Point* start) 
 	struct Point testPoint;
 	testPoint.col = point->col;
 	testPoint.row = point->row;
-	//printf("Final Point: (%d, %d)\n", point->row, point->col);
 	double close[4] = {0.0};
 	double close2[3] = { 0.0 };
 	double smallest, smallest2;
-	int found = 0, k = 0;
+	int found = 0, k = 0, flag = 0;
 	int index = 0, index2 = 0;
-	int shift = 0, shift2 = 0;
+	int shift = 0, shift2 = 0, shift3 = 0;
 	int row = point->row;
 	int col = point->col;
-	//row--;
-	//col--;
 
 	// Check if the point is surrounded by 1s
 	if (map->squares[row - 1][col] == 1 &&
@@ -268,6 +283,9 @@ int handleInnerPoint(struct Point* point, struct Map* map, struct Point* start) 
 		if (index2 == 1) {
 			index2 = 2;
 		}
+		if (fabs(close2[0] - close2[2]) < 0.000001) {
+			flag = 1;
+		}
 
 		if (index == 0) {
 			for (int i = 1; i < max && !found; i++) {
@@ -288,6 +306,17 @@ int handleInnerPoint(struct Point* point, struct Map* map, struct Point* start) 
 						shift2++;
 					}
 				}
+				found = 0;
+				if (flag) {
+					for (int i = 1; i < max && !found; i++) {
+						if (map->squares[row][col - i] == 0) {
+							found = 1;
+						}
+						else {
+							shift3--;
+						}
+					}
+				}
 			}
 			else if (index2 == 2) {
 				for (int i = 1; i < max && !found; i++) {
@@ -299,7 +328,11 @@ int handleInnerPoint(struct Point* point, struct Map* map, struct Point* start) 
 					}
 				}
 			}
-			if(abs(shift) <= abs(shift2)) {
+		
+			if (abs(shift3) < abs(shift) && abs(shift3) < abs(shift2)) {
+				point->col += shift3;
+			}
+			else if (abs(shift) <= abs(shift2)) {
 				point->row += shift;
 			}
 			else {
@@ -423,7 +456,24 @@ int handleInnerPoint(struct Point* point, struct Map* map, struct Point* start) 
 	else {
 		return 0;
 	}
-
-	// Print out the final point
-	printf("Final Point: (%d, %d)\n", point->row, point->col);
+}
+void sortPoints(double *arr, int *indexes) {
+	if (arr[0] > arr[2]) {
+		//swap(&arr[0], &arr[2]);
+		swap(&indexes[0], &indexes[2]);
+	}
+	if (arr[0] > arr[1]) {
+		//swap(&arr[0], &arr[1]);
+		swap(&indexes[0], &indexes[1]);
+	}
+	if (arr[1] > arr[2]) {
+		//swap(&arr[1], &arr[2]);
+		swap(&indexes[1], &indexes[2]);
+	}
+}
+void swap(int* xp, int* yp)
+{
+	int temp = *xp;
+	*xp = *yp;
+	*yp = temp;
 }
