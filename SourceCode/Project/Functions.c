@@ -200,7 +200,15 @@ int validBoxWeight(int weight) {
 }
 
 void printPoint(const struct Point* point) {
-	printf("%c%c\n", point->row, point->col);
+	int col = point->col;
+	int row = point->row;
+	char c = col + 'A';
+	char r = row;
+	if (!col && !row) {}
+	else {
+		printf("%d%c, ", row + 1, c);
+	}
+
 }
 
 struct Point convertPoint(const struct PackageInf* currentPackage) {

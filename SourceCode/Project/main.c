@@ -112,19 +112,9 @@ int main(void)
 			else if (divert.numPoints == -1){}
 			else {
 				printf(" divert: ");
-				int col1 = closestPoints[index].col;
-				int row1 = closestPoints[index].row;
-				char c1 = col1 + 'A';
-				printf("%d%c, ", row1 + 1, c1);
+				printPoint(&closestPoints[index]);
 				for (int i = 0; i < divert.numPoints; i++) {
-					int col = divert.points[i].col;
-					int row = divert.points[i].row;
-					char c = col + 'A';
-					char r = row;
-					if (!col && !row) {}
-					else {
-						printf("%d%c, ", row + 1, c);
-					}
+					printPoint(&divert.points[i]);
 				}
 			}
 			putchar('\n');
