@@ -24,6 +24,7 @@ int main(void)
 	struct Route yellowRoute = getYellowRoute();
 	struct Route routes[DESTINATIONS] = { blueRoute, greenRoute,yellowRoute};
 	struct Route selectedRoute;
+	struct Route divert;
 	struct Map routeMap = addRoute(&baseMap, &blueRoute);
 	routeMap = addRoute(&routeMap, &greenRoute);
 	routeMap = addRoute(&routeMap, &yellowRoute);
@@ -71,14 +72,23 @@ int main(void)
 							}
 						}
 						else {
-							pass = 1;
+							handleInnerPoint(&destinationPoint, &routeMap, &closestPoints[index]);
+							divert = shortestPath(&routeMap, closestPoints[index], destinationPoint);
+							if (divert.numPoints == -1) {
+								//Could not find truck
+								printf("Truck could not find route\n");
+								pass = 0;
+							}
+							else {
+								pass = 1;
+							}
 						}
 					}
 				}
 			} while (!pass);
 			
-			int check = handleInnerPoint(&destinationPoint, &routeMap, &closestPoints[index]);
-			struct Route route = shortestPath(&routeMap, closestPoints[index], destinationPoint);
+			//handleInnerPoint(&destinationPoint, &routeMap, &closestPoints[index]);
+			//divert = shortestPath(&routeMap, closestPoints[index], destinationPoint);
 			if (index == 0) {
 				printf("Ship on BLUE LINE,");
 			}
@@ -90,21 +100,21 @@ int main(void)
 			}
 			else {
 				printf("Ships tomorrow");
-				route.numPoints = -1;
+				divert.numPoints = -1;
 			}
-			if (route.numPoints == 1) {
+			if (divert.numPoints == 0) {
 				printf(" no diversion");
 			}
-			else if (route.numPoints == -1){}
+			else if (divert.numPoints == -1){}
 			else {
 				printf(" divert: ");
 				int col1 = closestPoints[index].col;
 				int row1 = closestPoints[index].row;
 				char c1 = col1 + 'A';
 				printf("%d%c, ", row1 + 1, c1);
-				for (int i = 0; i < route.numPoints; i++) {
-					int col = route.points[i].col;
-					int row = route.points[i].row;
+				for (int i = 0; i < divert.numPoints; i++) {
+					int col = divert.points[i].col;
+					int row = divert.points[i].row;
 					char c = col + 'A';
 					char r = row;
 					if (!col && !row) {}
@@ -114,6 +124,8 @@ int main(void)
 				}
 			}
 			putchar('\n');
+			//routeMap = addRoute(&routeMap, &route);
+			//printMap(&routeMap, 1, 1);
 		}
 	} while (flag != -1);
 	return 0;
