@@ -128,7 +128,7 @@ int Validdestination(const struct Map* routeMap, const char* dest) {
 int checkSpaceOfTruck(double space, struct Truck* truck1) {
 	if (truck1->m_totalSpace + space > BOX_SPACE) {
 
-		printf("Error: The total space of the truck cannot exceed %d cubic meters.\n", BOX_SPACE);
+		//printf("Error: The total space of the truck cannot exceed %d cubic meters.\n", BOX_SPACE);
 		return 0;
 	}
 	else {

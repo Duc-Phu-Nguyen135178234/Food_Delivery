@@ -29,7 +29,6 @@ int main(void)
 	routeMap = addRoute(&routeMap, &greenRoute);
 	routeMap = addRoute(&routeMap, &yellowRoute);
 
-
 	printMap(&routeMap, 1, 1);
 
 	struct Point p1 = { 6, 0 };
@@ -50,14 +49,13 @@ int main(void)
 			int indexes[DESTINATIONS] = { 0,1,2 };
 			sortPoints(distances,indexes, DESTINATIONS);
 			int index = indexes[0];
-			
-			double smallest = distances[0];
 			selectedRoute = routes[index];
 			int pass = 0;
 			int counter = 0;
 			int sendDepot = 0;
+			int notFound = 0;
 			do {
-				for (int i = 0; i < DESTINATIONS && !pass;i++) {
+				for (int i = 0; i < DESTINATIONS && !pass && notFound != 3;i++) {
 					if (trucks[i].route == selectedRoute.routeSymbol) {
 						if (!checkWeight(&trucks[i], &currentPackage) || !checkSpaceOfTruck(currentPackage.m_boxSize, &trucks[i])) {
 							counter++;
@@ -78,6 +76,11 @@ int main(void)
 								//Could not find truck
 								printf("Truck could not find route\n");
 								pass = 0;
+								notFound++;
+								if (notFound == 3) {
+									pass = 1;
+									index = 3;
+								}
 							}
 							else {
 								pass = 1;
@@ -87,8 +90,6 @@ int main(void)
 				}
 			} while (!pass);
 			
-			//handleInnerPoint(&destinationPoint, &routeMap, &closestPoints[index]);
-			//divert = shortestPath(&routeMap, closestPoints[index], destinationPoint);
 			if (index == 0) {
 				printf("Ship on BLUE LINE,");
 			}
@@ -97,6 +98,9 @@ int main(void)
 			}
 			else if (index == 2) {
 				printf("Ship on YELLOW LINE,");
+			}
+			else if (index == 3) {
+				printf("Not an eligible point for delivery");
 			}
 			else {
 				printf("Ships tomorrow");
