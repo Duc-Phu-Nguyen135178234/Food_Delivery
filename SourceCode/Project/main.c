@@ -64,8 +64,7 @@ int main(void)
 						else {
 							handleInnerPoint(&destinationPoint, &routeMap, &closestPoints[index]);
 							divert = shortestPath(&routeMap, closestPoints[index], destinationPoint);
-							if (divert.numPoints == -1) {
-								//Could not find truck
+							if (divert.numPoints == -1) { //Could not find truck
 								printf("Truck could not find route\n");
 								pass = 0;
 								notFound++;

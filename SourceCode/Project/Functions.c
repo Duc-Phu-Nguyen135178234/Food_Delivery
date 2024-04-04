@@ -96,7 +96,7 @@ int isValidColumn(char column) {
 // check if correct format 8A 12A and map destination on routeMap return 1
 //if Destination out size the routeMap return 0
 
-int Validdestination(const struct Map* routeMap, const char* dest) {
+int Validdestination(const struct Map* routeMap, char* dest) {
 	int len = strlen(dest);
 	int row;
 	char col;
@@ -110,7 +110,7 @@ int Validdestination(const struct Map* routeMap, const char* dest) {
 
 		// Extract the column letter part of the destination
 		col = toupper(dest[len - 1]);
-
+		dest[len - 1] = toupper(dest[len - 1]);
 		if (row < 1 || row > MAP_ROWS) return 0; // out of range
 
 		if (!isValidColumn(col)) return 0; // if the column letter is out of range
