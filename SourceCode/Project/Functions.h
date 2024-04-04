@@ -2,7 +2,6 @@
 #ifndef SENECA_DELIVERY_H
 #define SENECA_DELIVERY_H
 
-
 #include "mapping.h"
 #define BUFFER 10
 //header file for 6 function
@@ -62,4 +61,5 @@ int handleInnerPoint(struct Point* point, struct Map* map, struct Point* start);
 void sortPoints(double* arr, int* indexes);
 
 void swap(int* xp, int* yp);
+
 #endif //SENECA_DELIVERY_H

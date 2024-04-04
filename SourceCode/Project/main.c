@@ -8,7 +8,7 @@
 
 int main(void)
 {
-	int flag = 0;
+	int flag = 0, pass = 0, counter = 0, sendDepot = 0, notFound = 0, index = 0, i = 0;
 	struct PackageInf currentPackage;
 	struct Point destinationPoint;
 	double distances[DESTINATIONS];
@@ -31,31 +31,23 @@ int main(void)
 
 	printMap(&routeMap, 1, 1);
 
-	struct Point p1 = { 6, 0 };
-	struct Point p2 = { 7, 0 };
-	double dist = distance(&p1, &p2);
-
 	do {
-		//convert point string to point struct
 		flag = getInput(&routeMap, &currentPackage, NULL);
 		if (flag != -1) {
 			destinationPoint = convertPoint(&currentPackage);
-			for (int i = 0; i < DESTINATIONS; i++) {
+			for (i = 0; i < DESTINATIONS; i++) {
 				closestPoints[i] = calcClosestPointeFromRoute(&routes[i], &destinationPoint);
 			}
-			for (int i = 0; i < DESTINATIONS; i++) {
+			for (i = 0; i < DESTINATIONS; i++) {
 				distances[i] = distance(&closestPoints[i], &destinationPoint);
 			}
 			int indexes[DESTINATIONS] = { 0,1,2 };
 			sortPoints(distances,indexes, DESTINATIONS);
-			int index = indexes[0];
+			index = indexes[0];
 			selectedRoute = routes[index];
-			int pass = 0;
-			int counter = 0;
-			int sendDepot = 0;
-			int notFound = 0;
+			pass = 0, counter = 0, sendDepot = 0, notFound = 0;
 			do {
-				for (int i = 0; i < DESTINATIONS && !pass && notFound != 3;i++) {
+				for (i = 0; i < DESTINATIONS && !pass && notFound != 3;i++) {
 					if (trucks[i].route == selectedRoute.routeSymbol) {
 						if (!checkWeight(&trucks[i], &currentPackage) || !checkSpaceOfTruck(currentPackage.m_boxSize, &trucks[i])) {
 							counter++;
@@ -113,12 +105,12 @@ int main(void)
 			else {
 				printf(" divert: ");
 				printPoint(&closestPoints[index]);
-				for (int i = 0; i < divert.numPoints; i++) {
+				for (i = 0; i < divert.numPoints; i++) {
 					printPoint(&divert.points[i]);
 				}
 			}
 			putchar('\n');
-			//routeMap = addRoute(&routeMap, &route);
+			//routeMap = addRoute(&routeMap, &divert);
 			//printMap(&routeMap, 1, 1);
 		}
 	} while (flag != -1);
