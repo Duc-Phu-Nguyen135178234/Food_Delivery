@@ -136,8 +136,6 @@ int Validdestination(const struct Map* routeMap, char* dest) {
 
 int checkSpaceOfTruck(double space, struct Truck* truck1) {
 	if (truck1->m_totalSpace + space > BOX_SPACE) {
-
-		//printf("Error: The total space of the truck cannot exceed %d cubic meters.\n", BOX_SPACE);
 		return 0;
 	}
 	else {
@@ -152,7 +150,6 @@ int checkBoxSize(double shipmentSize) {
     int result = 0;
 
     if (shipmentSize == SIZE1 || shipmentSize == SIZE2 || shipmentSize == SIZE3) {
-        //printf("Box size is valid.\n");
         result = 1;
         
     } else {
@@ -195,7 +192,6 @@ struct Point calcClosestPointeFromRoute(const struct Route* r1, struct Point* de
 			index = i;
 		}
 	}
-	//printf("%d\n", index + 1);
 	return r1->points[index];
 }
 
@@ -481,15 +477,12 @@ int handleInnerPoint(struct Point* point, struct Map* map, struct Point* start) 
 }
 void sortPoints(double *arr, int *indexes) {
 	if (arr[0] > arr[2]) {
-		//swap(&arr[0], &arr[2]);
 		swap(&indexes[0], &indexes[2]);
 	}
 	if (arr[0] > arr[1]) {
-		//swap(&arr[0], &arr[1]);
 		swap(&indexes[0], &indexes[1]);
 	}
 	if (arr[1] > arr[2]) {
-		//swap(&arr[1], &arr[2]);
 		swap(&indexes[1], &indexes[2]);
 	}
 }

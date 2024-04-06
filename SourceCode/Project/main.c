@@ -114,8 +114,6 @@ int main(void)
 				}
 			}
 			putchar('\n');
-			//routeMap = addRoute(&routeMap, &divert);
-			//printMap(&routeMap, 1, 1);
 		}
 	} while (flag != -1);
 	return 0;

@@ -241,7 +241,7 @@ struct Route shortestPath(const struct Map* map, const struct Point start, const
 			last = current;
 			current = possible.points[close];
 			addPtToRoute(&result, current);
-			if (distance(&dest, &current) <= sqrt(2)) {
+			if (distance(&dest, &current) == 1) {
 				return result;
 			}
 			if (result.numPoints == MAX_ROUTE) {

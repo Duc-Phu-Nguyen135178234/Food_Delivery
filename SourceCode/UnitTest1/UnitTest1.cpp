@@ -332,7 +332,7 @@ namespace IntegrationTest {
 
         TEST_METHOD(checkinput_1200_10_12A) {
             // size is invalid -->expect fail
-            int weight = 1201;
+            int weight = 1200;
             double size = 10;
             char dest[] = "12A";
             int result = 0;
@@ -348,7 +348,7 @@ namespace IntegrationTest {
 
         TEST_METHOD(checkinput_1200_5_25A) {
             // destination out of box --> expect fail
-            int weight = 1201;
+            int weight = 1200;
             double size = 10;
             char dest[] = "25A";
             int result = 0;
@@ -476,7 +476,7 @@ namespace IntegrationTest {
         }
         TEST_METHOD(checkWeight50_truckSpace) {
             struct PackageInf package = { 50.0,0.5,NULL };
-            struct Truck truck = { 0, 49.5,1149, '\0' };
+            struct Truck truck = { 0, 49.5,1150, '\0' };
             int result = 0;
             if (validBoxWeight(package.m_weight)) {
                 result = checkWeight(&truck, &package);
