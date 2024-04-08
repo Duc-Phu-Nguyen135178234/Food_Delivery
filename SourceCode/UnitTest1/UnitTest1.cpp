@@ -290,7 +290,37 @@ public:
         int result = checkSpaceOfTruck(space, &tr1);
         Assert::AreEqual(1, result);
     }
+    TEST_METHOD(TestSmallSpace) {
+        int space = 3;
+        Truck tr;
+        tr.m_totalSpace = 5;
+        int result = checkSpaceOfTruck(space, &tr);
+        Assert::AreEqual(1, result);
+    }
 
+    TEST_METHOD(TestLargeSpace) {
+        int space = 20;
+        Truck tr;
+        tr.m_totalSpace = 15;
+        int result = checkSpaceOfTruck(space, &tr);
+        Assert::AreEqual(0, result);
+    }
+
+    TEST_METHOD(TestZeroSpace) {
+        int space = 0;
+        Truck tr;
+        tr.m_totalSpace = 10;
+        int result = checkSpaceOfTruck(space, &tr);
+        Assert::AreEqual(1, result);
+    }
+
+    TEST_METHOD(TestNegativeSpace) {
+        int space = -5;
+        Truck tr;
+        tr.m_totalSpace = 8;
+        int result = checkSpaceOfTruck(space, &tr);
+        Assert::AreEqual(0, result);
+    }
     };
 }
 
