@@ -268,7 +268,7 @@ namespace UnitTest1
         
     TEST_METHOD(ShipmentSizeMatchesaSizeOfConstant) {
         const double size1 = 0.5; 
-        Assert::IsTrue(checkBoxSize(shipmentSize));
+        Assert::IsTrue(checkBoxSize(size1));
     }
         
     };
