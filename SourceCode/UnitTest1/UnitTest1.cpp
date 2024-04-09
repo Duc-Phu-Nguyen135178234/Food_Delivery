@@ -259,18 +259,21 @@ public:
     }
         
 
-    TEST_METHOD(MinimumValidBoxSize) {
-        double shipmentSize = 0.49999; // Minimum valid box size
+    TEST_METHOD(MinimumValidBoxSizeEdgeCase) {
+        double shipmentSize = 0.49999;
         Assert::IsTrue(checkBoxSize(shipmentSize));
     }
 
         
-    TEST_METHOD(MaximumValidBoxSize) {
-        double shipmentSize = 5.00001; // Maximum valid box size (assuming a reasonable upper limit)
+    TEST_METHOD(MaximumValidBoxSizeEdgeCase) {
+        double shipmentSize = 5.00001;
         Assert::IsTrue(checkBoxSize(shipmentSize));
     }
         
-        
+    TEST_METHOD(ShipmentSizeMatchesaSizeOfConstant) {
+        const double size1 = 0.5; 
+        Assert::IsTrue(checkBoxSize(shipmentSize));
+    }
         
     };
 
