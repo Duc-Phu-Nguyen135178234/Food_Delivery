@@ -229,6 +229,9 @@ struct Route shortestPath(const struct Map* map, const struct Point start, const
 	struct Route possible = { {0,0},0,0 };
 	int close = 1;
 
+	if (distance(&dest, &current) <= sqrt(2)) {
+		return result;
+	}
 	while (!eqPt(current, dest) && close >= 0)
 	{
 		possible = getPossibleMoves(map, current, last);
@@ -238,11 +241,14 @@ struct Route shortestPath(const struct Map* map, const struct Point start, const
 			last = current;
 			current = possible.points[close];
 			addPtToRoute(&result, current);
-			result.numPoints++;
-
-			if (distance(&dest, &current) <= 1.5) {
+			if (distance(&dest, &current) == 1) {
 				return result;
 			}
+			if (result.numPoints == MAX_ROUTE) {
+				result.numPoints = -1;
+				return result;
+			}
+
 		}
 	}
 

@@ -2,7 +2,6 @@
 #ifndef SENECA_DELIVERY_H
 #define SENECA_DELIVERY_H
 
-
 #include "mapping.h"
 #define BUFFER 10
 //header file for 6 function
@@ -46,16 +45,21 @@ int Validdestination(const struct Map* routeMap, char* dest);
 //if Destination out size the routeMap return 0
 
 //create function prototype check space of truck
-int checkSpaceOfTruck(int space , struct Truck* truck1);
+int checkSpaceOfTruck(double space , struct Truck* truck1);
 //this prototype will take 6 values  and returns integer value
 //
 struct Point calcClosestPointeFromRoute(const struct Route* r1, struct Point* dest);
 
 int validBoxWeight(int weight);
 
-void printPoint(const struct Point* point);
+void printPoint(const struct Point* point, int end);
 
-struct Point convertPoint(const char* pointText);
+struct Point convertPoint(const struct PackageInf* currentPackage);
 
 int handleInnerPoint(struct Point* point, struct Map* map, struct Point* start);
+
+void sortPoints(double* arr, int* indexes);
+
+void swap(int* xp, int* yp);
+
 #endif //SENECA_DELIVERY_H

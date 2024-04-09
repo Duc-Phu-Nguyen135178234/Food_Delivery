@@ -59,11 +59,11 @@ namespace UnitTest1
     public:
 
 
-        TEST_METHOD(validdestination_2B)
+        TEST_METHOD(Blackbox_validdestination_2B)
 
         {
             struct Map routeMap = populateMap();
-            char dest[] = "2B";
+            char dest[] = "2B"; //Min of row check
 
 
             int result = Validdestination(&routeMap, dest);
@@ -72,10 +72,10 @@ namespace UnitTest1
             Assert::AreEqual(1, result);
         }
 
-        TEST_METHOD(validdestination_25Y)
+        TEST_METHOD(Blackbox_validdestination_8Y)
         {
             struct Map routeMap = populateMap();
-            char dest[] = "12A"; // Building present
+            char dest[] = "8Y"; //Max of column checking
 
 
             int result = Validdestination(&routeMap, dest);
@@ -84,10 +84,10 @@ namespace UnitTest1
             Assert::AreEqual(1, result);
         }
 
-        TEST_METHOD(validdestination_13M)
+        TEST_METHOD(Blackbox_validdestination_25B)
         {
             struct Map routeMap = populateMap();
-            char dest[] = "13M"; // out range
+            char dest[] = "25B"; //Max row checking
 
 
             int result = Validdestination(&routeMap, dest);
@@ -96,15 +96,70 @@ namespace UnitTest1
             Assert::AreEqual(1, result);
         }
 
-        TEST_METHOD(validdestination_23k)
+        TEST_METHOD(Blackbox_validdestination_14A)
         {
             struct Map routeMap = populateMap();
-            char dest[] = "23K"; // Building present
+            char dest[] = "14A"; // Building present
 
             int result = Validdestination(&routeMap, dest);
 
             
             Assert::AreEqual(1, result);
+        }
+
+        TEST_METHOD(Blackbox_validdestination_16M)
+        {
+            struct Map routeMap = populateMap();
+            char dest[] = "16M"; // Valid inside map and present a Building have address
+
+            int result = Validdestination(&routeMap, dest);
+
+
+            Assert::AreEqual(1, result);
+        }
+
+        TEST_METHOD(Whitebox_validdestination_24F)
+        {
+            struct Map routeMap = populateMap();
+            char dest[] = "24F"; // Valid inside map and present a Building have address
+
+            int result = Validdestination(&routeMap, dest);
+
+
+            Assert::AreEqual(1, result);
+        }
+
+        TEST_METHOD(Whitebox_validdestination_30F)
+        {
+            struct Map routeMap = populateMap();
+            char dest[] = "30F"; //Out of map
+
+            int result = Validdestination(&routeMap, dest);
+
+
+            Assert::AreEqual(0, result);
+        }
+
+        TEST_METHOD(Whitebox_validdestination_10H)
+        {
+            struct Map routeMap = populateMap();
+            char dest[] = "10H"; // Inside map but it is not present a Building.
+
+            int result = Validdestination(&routeMap, dest);
+
+
+            Assert::AreEqual(0, result);
+        }
+
+        TEST_METHOD(Whitebox_validdestination_17F)
+        {
+            struct Map routeMap = populateMap();
+            char dest[] = "17F"; // Inside map but it is not present a Building.
+
+            int result = Validdestination(&routeMap, dest);
+
+
+            Assert::AreEqual(0, result);
         }
     };
 
@@ -235,7 +290,37 @@ public:
         int result = checkSpaceOfTruck(space, &tr1);
         Assert::AreEqual(1, result);
     }
+    TEST_METHOD(TestSmallSpace) {
+        int space = 3;
+        Truck tr;
+        tr.m_totalSpace = 5;
+        int result = checkSpaceOfTruck(space, &tr);
+        Assert::AreEqual(1, result);
+    }
 
+    TEST_METHOD(TestLargeSpace) {
+        int space = 20;
+        Truck tr;
+        tr.m_totalSpace = 15;
+        int result = checkSpaceOfTruck(space, &tr);
+        Assert::AreEqual(0, result);
+    }
+
+    TEST_METHOD(TestZeroSpace) {
+        int space = 0;
+        Truck tr;
+        tr.m_totalSpace = 10;
+        int result = checkSpaceOfTruck(space, &tr);
+        Assert::AreEqual(1, result);
+    }
+
+    TEST_METHOD(TestNegativeSpace) {
+        int space = -5;
+        Truck tr;
+        tr.m_totalSpace = 8;
+        int result = checkSpaceOfTruck(space, &tr);
+        Assert::AreEqual(0, result);
+    }
     };
 }
 
@@ -277,7 +362,7 @@ namespace IntegrationTest {
 
         TEST_METHOD(checkinput_1200_10_12A) {
             // size is invalid -->expect fail
-            int weight = 1201;
+            int weight = 1200;
             double size = 10;
             char dest[] = "12A";
             int result = 0;
@@ -293,7 +378,7 @@ namespace IntegrationTest {
 
         TEST_METHOD(checkinput_1200_5_25A) {
             // destination out of box --> expect fail
-            int weight = 1201;
+            int weight = 1200;
             double size = 10;
             char dest[] = "25A";
             int result = 0;
@@ -421,7 +506,7 @@ namespace IntegrationTest {
         }
         TEST_METHOD(checkWeight50_truckSpace) {
             struct PackageInf package = { 50.0,0.5,NULL };
-            struct Truck truck = { 0, 49.5,1149, '\0' };
+            struct Truck truck = { 0, 49.5,1150, '\0' };
             int result = 0;
             if (validBoxWeight(package.m_weight)) {
                 result = checkWeight(&truck, &package);
