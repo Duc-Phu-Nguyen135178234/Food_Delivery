@@ -58,7 +58,6 @@ namespace UnitTest1
     {
     public:
 
-
         TEST_METHOD(Blackbox_validdestination_2B)
 
         {
@@ -224,79 +223,67 @@ namespace UnitTest1
     };
 
     TEST_CLASS(checkboxsize) {
+    public:
+        TEST_METHOD(shipmentSize_Null) {
+            double shipmentSize = NULL;
+            int result = checkBoxSize(shipmentSize);
+            Assert::IsFalse(result);
+        }
 
-public:
+        TEST_METHOD(shipmentSize_1) {
+            double shipmentSize = 1;
+            int result = checkBoxSize(shipmentSize);
+            Assert::IsTrue(result);
+        }
 
-    // Define your test cases
-    TEST_METHOD(shipmentSize_Null) {
-        double shipmentSize = NULL;
-        int result = checkBoxSize(shipmentSize);
-        Assert::IsFalse(result);
-    }
+        TEST_METHOD(shipmentSize_7) {
+            double shipmentSize = 7;
+            int result = checkBoxSize(shipmentSize);
+            Assert::IsFalse(result);
+        }
 
-    TEST_METHOD(shipmentSize_1) {
-        double shipmentSize = 1;
-        int result = checkBoxSize(shipmentSize);
-        Assert::IsTrue(result);
-    }
-
-    TEST_METHOD(shipmentSize_7) {
-        double shipmentSize = 7;
-        int result = checkBoxSize(shipmentSize);
-        Assert::IsFalse(result);
-    }
-
-    TEST_METHOD(shipmentSize_character) {
-        char shipmentSize = 'a';
-        int result = checkBoxSize(shipmentSize);
-        Assert::IsFalse(result);
-    }
-
+        TEST_METHOD(shipmentSize_character) {
+            char shipmentSize = 'a';
+            int result = checkBoxSize(shipmentSize);
+            Assert::IsFalse(result);
+        }
     };
 
     TEST_CLASS(checkspaceoftruck) {
-
-public:
-
-    // Define your test cases
-    TEST_METHOD(TestSpace15) {
-        int space = 15;
-        Truck tr1;
-        tr1.m_totalSpace = 8;
-        int result = checkSpaceOfTruck(space, &tr1);
-        Assert::AreEqual(1, result);
-    }
-
-    TEST_METHOD(TestSpace6) {
-        int space = 6;
-        Truck tr1;
-        tr1.m_totalSpace = 8;
-        int result = checkSpaceOfTruck(space, &tr1);
-        Assert::AreEqual(1, result);
-    }
-
-    TEST_METHOD(TestSpace10) {
-        int space = 10;
-        Truck tr1;
-        tr1.m_totalSpace = 45;
-        int result = checkSpaceOfTruck(space, &tr1);
-        Assert::AreEqual(0, result);
-    }
-
-    TEST_METHOD(TestNullspace) {
-        int space = 0;
-        Truck tr1;
-        tr1.m_totalSpace = 0;
-        int result = checkSpaceOfTruck(space, &tr1);
-        Assert::AreEqual(1, result);
-    }
-
+    public:
+        TEST_METHOD(TestSpace15) {
+            int space = 15;
+            Truck tr1;
+            tr1.m_totalSpace = 8;
+            int result = checkSpaceOfTruck(space, &tr1);
+            Assert::AreEqual(1, result);
+        }
+        TEST_METHOD(TestSpace6) {
+            int space = 6;
+            Truck tr1;
+            tr1.m_totalSpace = 8;
+            int result = checkSpaceOfTruck(space, &tr1);
+            Assert::AreEqual(1, result);
+        }
+        TEST_METHOD(TestSpace10) {
+            int space = 10;
+            Truck tr1;
+            tr1.m_totalSpace = 45;
+            int result = checkSpaceOfTruck(space, &tr1);
+            Assert::AreEqual(0, result);
+        }
+        TEST_METHOD(TestNullspace) {
+            int space = 0;
+            Truck tr1;
+            tr1.m_totalSpace = 0;
+            int result = checkSpaceOfTruck(space, &tr1);
+            Assert::AreEqual(1, result);
+        }
     };
 }
 
 namespace IntegrationTest {
     TEST_CLASS(IntegrationTest_getinput_check_valid) {
-
     public:
         TEST_METHOD(checkinput_1200_5_12A) {
             //correct weight , size , destination
@@ -309,9 +296,7 @@ namespace IntegrationTest {
             if (validBoxWeight(weight) && checkBoxSize(size)) {
                 result = Validdestination(&routeMap, dest);
             }
-
             Assert::AreEqual(1, result);
-
         }
         TEST_METHOD(checkinput_1201_5_12A) {
             // invalid weight . Expect fail input 
@@ -324,12 +309,8 @@ namespace IntegrationTest {
             if (validBoxWeight(weight) && checkBoxSize(size)) {
                 result = Validdestination(&routeMap, dest);
             }
-
             Assert::AreEqual(0, result);
-
-
         }
-
         TEST_METHOD(checkinput_1200_10_12A) {
             // size is invalid -->expect fail
             int weight = 1200;
@@ -341,11 +322,8 @@ namespace IntegrationTest {
             if (validBoxWeight(weight) && checkBoxSize(size)) {
                 result = Validdestination(&routeMap, dest);
             }
-
             Assert::AreEqual(0, result);
-
         }
-
         TEST_METHOD(checkinput_1200_5_25A) {
             // destination out of box --> expect fail
             int weight = 1200;
@@ -358,11 +336,8 @@ namespace IntegrationTest {
             if (validBoxWeight(weight) && checkBoxSize(size)) {
                 result = Validdestination(&routeMap, dest);
             }
-
             Assert::AreEqual(0, result);
-
         }
-
         TEST_METHOD(checkinput_1200_5_7J) {
             //destination inside routemap but not building --> invalid destination
             int weight = 1201;
@@ -375,9 +350,7 @@ namespace IntegrationTest {
             if (validBoxWeight(weight) && checkBoxSize(size)) {
                 result = Validdestination(&routeMap, dest);
             }
-
             Assert::AreEqual(0, result);
-
         }
         TEST_METHOD(checkinput_500_0_12O) {
             //all correct input , weight , size 0.5 , 120 inside box and building . Expect function pass
@@ -391,31 +364,24 @@ namespace IntegrationTest {
             if (validBoxWeight(weight) && checkBoxSize(size)) {
                 result = Validdestination(&routeMap, dest);
             }
-
             Assert::AreEqual(1, result);
-
         }
-
         TEST_METHOD(checkinput_1_1_22K) {
             //all correct input , weight 1, size 1 , 22K inside box and building . Expect function pass
             int weight = 1;
             double size = 0.5;
             char dest[] = "22K";
             int result;
-
             struct Map routeMap = populateMap();
 
             if (validBoxWeight(weight) && checkBoxSize(size)) {
                 result = Validdestination(&routeMap, dest);
             }
-
             Assert::AreEqual(1, result);
-
         }
     };
 
     TEST_CLASS(IntegrationTest_boxSize_truck) {
-
     public:
         TEST_METHOD(checkSize1_truck) {
             struct PackageInf package = {0.0,1.0,NULL};
