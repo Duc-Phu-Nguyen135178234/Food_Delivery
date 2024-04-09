@@ -251,7 +251,27 @@ public:
         int result = checkBoxSize(shipmentSize);
         Assert::IsFalse(result);
     }
+        
+    TEST_METHOD(NegativeBoxSizes) {
+        
+        double shipmentSize = -1.0; // Negative box size
+        Assert::IsFalse(checkBoxSize(shipmentSize));
+    }
+        
 
+    TEST_METHOD(MinimumValidBoxSize) {
+        double shipmentSize = 0.49999; // Minimum valid box size
+        Assert::IsTrue(checkBoxSize(shipmentSize));
+    }
+
+        
+    TEST_METHOD(MaximumValidBoxSize) {
+        double shipmentSize = 5.00001; // Maximum valid box size (assuming a reasonable upper limit)
+        Assert::IsTrue(checkBoxSize(shipmentSize));
+    }
+        
+        
+        
     };
 
     TEST_CLASS(checkspaceoftruck) {
