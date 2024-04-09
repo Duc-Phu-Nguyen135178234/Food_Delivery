@@ -220,6 +220,37 @@ namespace UnitTest1
             int result = checkWeight(&truck, &package);
             Assert::AreEqual(0, result);
         }
+        //  Whitebox Tests
+        TEST_METHOD(TruckNearCapacity)
+        {
+            Truck truck = { 1199, 0, 1200, '\0' };
+            PackageInf package = { 1, 0, nullptr };
+            int result = checkWeight(&truck, &package);
+            Assert::AreEqual(1, result); 
+        }
+
+        TEST_METHOD(FloatingPointPrecisionUnderLimit)
+        {
+            Truck truck = { 1000.5, 0, 1200, '\0' };
+            PackageInf package = { 199.4, 0, nullptr };
+            int result = checkWeight(&truck, &package);
+            Assert::AreEqual(1, result); 
+        }
+
+        TEST_METHOD(FloatingPointPrecisionOverLimit)
+        {
+            Truck truck = { 1000.6, 0, 1200, '\0' };
+            PackageInf package = { 199.5, 0, nullptr };
+            int result = checkWeight(&truck, &package);
+            Assert::AreEqual(0, result); 
+        }
+
+        TEST_METHOD(FullTruckCannotAddWeight)
+        {
+            Truck truck = { 1200, 0, 1200, '\0' };
+            PackageInf package = { 1, 0, nullptr };
+            int result = checkWeight(&truck, &package);
+            Assert::AreEqual(0, result); 
     };
 
     TEST_CLASS(checkboxsize) {
