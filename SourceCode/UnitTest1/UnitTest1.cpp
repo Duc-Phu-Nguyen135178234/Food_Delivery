@@ -242,43 +242,104 @@ namespace UnitTest1
             Assert::IsFalse(result);
         }
 
-        TEST_METHOD(shipmentSize_character) {
-            char shipmentSize = 'a';
-            int result = checkBoxSize(shipmentSize);
-            Assert::IsFalse(result);
-        }
+    TEST_METHOD(shipmentSize_character) {
+        char shipmentSize = 'a';
+        int result = checkBoxSize(shipmentSize);
+        Assert::IsFalse(result);
+    }
+        
+    TEST_METHOD(NegativeBoxSizes) {
+        
+        double shipmentSize = -1.0; // Negative box size
+        Assert::IsFalse(checkBoxSize(shipmentSize));
+    }
+        
+
+    TEST_METHOD(MinimumValidBoxSizeEdgeCase) {
+        double shipmentSize = 0.49999;
+        Assert::IsTrue(checkBoxSize(shipmentSize));
+    }
+
+        
+    TEST_METHOD(MaximumValidBoxSizeEdgeCase) {
+        double shipmentSize = 5.00001;
+        Assert::IsTrue(checkBoxSize(shipmentSize));
+    }
+        
+    TEST_METHOD(ShipmentSizeMatchesaSizeOfConstant) {
+        const double size1 = 0.5; 
+        Assert::IsTrue(checkBoxSize(shipmentSize));
+    }
+        
     };
 
     TEST_CLASS(checkspaceoftruck) {
-    public:
-        TEST_METHOD(TestSpace15) {
-            int space = 15;
-            Truck tr1;
-            tr1.m_totalSpace = 8;
-            int result = checkSpaceOfTruck(space, &tr1);
-            Assert::AreEqual(1, result);
-        }
-        TEST_METHOD(TestSpace6) {
-            int space = 6;
-            Truck tr1;
-            tr1.m_totalSpace = 8;
-            int result = checkSpaceOfTruck(space, &tr1);
-            Assert::AreEqual(1, result);
-        }
-        TEST_METHOD(TestSpace10) {
-            int space = 10;
-            Truck tr1;
-            tr1.m_totalSpace = 45;
-            int result = checkSpaceOfTruck(space, &tr1);
-            Assert::AreEqual(0, result);
-        }
-        TEST_METHOD(TestNullspace) {
-            int space = 0;
-            Truck tr1;
-            tr1.m_totalSpace = 0;
-            int result = checkSpaceOfTruck(space, &tr1);
-            Assert::AreEqual(1, result);
-        }
+
+public:
+
+    // Define your test cases
+    TEST_METHOD(TestSpace15) {
+        int space = 15;
+        Truck tr1;
+        tr1.m_totalSpace = 8;
+        int result = checkSpaceOfTruck(space, &tr1);
+        Assert::AreEqual(1, result);
+    }
+
+    TEST_METHOD(TestSpace6) {
+        int space = 6;
+        Truck tr1;
+        tr1.m_totalSpace = 8;
+        int result = checkSpaceOfTruck(space, &tr1);
+        Assert::AreEqual(1, result);
+    }
+
+    TEST_METHOD(TestSpace10) {
+        int space = 10;
+        Truck tr1;
+        tr1.m_totalSpace = 45;
+        int result = checkSpaceOfTruck(space, &tr1);
+        Assert::AreEqual(0, result);
+    }
+
+    TEST_METHOD(TestNullspace) {
+        int space = 0;
+        Truck tr1;
+        tr1.m_totalSpace = 0;
+        int result = checkSpaceOfTruck(space, &tr1);
+        Assert::AreEqual(1, result);
+    }
+    TEST_METHOD(TestSmallSpace) {
+        int space = 3;
+        Truck tr;
+        tr.m_totalSpace = 5;
+        int result = checkSpaceOfTruck(space, &tr);
+        Assert::AreEqual(1, result);
+    }
+
+    TEST_METHOD(TestLargeSpace) {
+        int space = 20;
+        Truck tr;
+        tr.m_totalSpace = 15;
+        int result = checkSpaceOfTruck(space, &tr);
+        Assert::AreEqual(0, result);
+    }
+
+    TEST_METHOD(TestZeroSpace) {
+        int space = 0;
+        Truck tr;
+        tr.m_totalSpace = 10;
+        int result = checkSpaceOfTruck(space, &tr);
+        Assert::AreEqual(1, result);
+    }
+
+    TEST_METHOD(TestNegativeSpace) {
+        int space = -5;
+        Truck tr;
+        tr.m_totalSpace = 8;
+        int result = checkSpaceOfTruck(space, &tr);
+        Assert::AreEqual(0, result);
+    }
     };
 }
 
