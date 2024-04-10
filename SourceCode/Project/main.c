@@ -28,7 +28,7 @@ int main(void)
 	struct Map routeMap = addRoute(&baseMap, &blueRoute);
 	routeMap = addRoute(&routeMap, &greenRoute);
 	routeMap = addRoute(&routeMap, &yellowRoute);
-
+	int valid = getInput(&routeMap, NULL, "          20   .5  28x");
 	printMap(&routeMap, 1, 1);
 
 	do {

@@ -183,6 +183,27 @@ namespace UnitTest1
             int valid = getInput(&testMap, NULL,"0 0 12A");
             Assert::IsTrue(valid);
         }
+        TEST_METHOD(noexitstring) {
+            int valid = getInput(&testMap, NULL, "X");
+            Assert::IsFalse(valid);
+        }
+        TEST_METHOD(nospacedelimit) {
+            int valid = getInput(&testMap, NULL, "20.528x");
+            Assert::IsFalse(valid);
+        }
+        TEST_METHOD(spacedelimit) {
+            int valid = getInput(&testMap, NULL, "20 .5 28x");
+            Assert::IsFalse(valid);
+        }
+        TEST_METHOD(multiplespacedelimit) {
+            int valid = getInput(&testMap, NULL, "2 2 2");
+            Assert::IsFalse(valid);
+        }
+        TEST_METHOD(correctinput) {
+            int valid = getInput(&testMap, NULL, "20 .5 12a");
+            Assert::IsTrue(valid);
+        }
+        
     };
 
     TEST_CLASS(CheckWeightTests)

@@ -77,13 +77,20 @@ int getInput(const struct Map* routeMap, struct PackageInf* package, char* tests
 					char test[BUFFER] = "\0";
 					strcpy(test, teststr);
 					p = strtok(test, " ");
-					weight = atoi(p);
-					p = strtok(NULL, " ");
-					boxSize = atoi(p);
-					p = strtok(NULL, " ");
-					//p = strtok(test, " ");
-					strcpy(dest, p);
-					valid = Validdestination(routeMap, dest);
+					if (p != NULL) {
+						weight = atoi(p);
+						p = strtok(NULL, " ");
+						if (p != NULL) {
+							boxSize = atoi(p);
+							p = strtok(NULL, " ");
+							//p = strtok(test, " ");
+							strcpy(dest, p);
+							valid = Validdestination(routeMap, dest);
+						}
+					}
+					else {
+						valid = 0;
+					}
 				}
 			}
 			else {
