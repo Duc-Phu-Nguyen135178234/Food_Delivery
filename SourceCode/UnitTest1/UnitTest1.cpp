@@ -309,13 +309,13 @@ namespace UnitTest1
 
         TEST_METHOD(MinimumValidBoxSizeEdgeCase) {
             double shipmentSize = 0.49999;
-            Assert::IsTrue(checkBoxSize(shipmentSize));
+            Assert::IsFalse(checkBoxSize(shipmentSize));
         }
 
         
         TEST_METHOD(MaximumValidBoxSizeEdgeCase) {
             double shipmentSize = 5.00001;
-            Assert::IsTrue(checkBoxSize(shipmentSize));
+            Assert::IsFalse(checkBoxSize(shipmentSize));
         }
         
         TEST_METHOD(ShipmentSizeMatchesaSizeOfConstant) {

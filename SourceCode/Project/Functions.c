@@ -142,7 +142,7 @@ int Validdestination(const struct Map* routeMap, char* dest) {
 }
 
 int checkSpaceOfTruck(double space, struct Truck* truck1) {
-	if (truck1->m_totalSpace + space > BOX_SPACE) {
+	if (truck1->m_totalSpace + space > BOX_SPACE || space < 0) {
 		return 0;
 	}
 	else {
