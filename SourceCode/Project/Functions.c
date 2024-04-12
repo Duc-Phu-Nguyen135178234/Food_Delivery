@@ -75,7 +75,7 @@ int getInput(const struct Map* routeMap, struct PackageInf* package, char* tests
 					char dest[BUFFER];
 					char* p;
 					char test[BUFFER] = "\0";
-					strcpy(test, teststr);
+					strncpy(test, teststr,BUFFER);
 					p = strtok(test, " ");
 					if (p != NULL) {
 						weight = atoi(p);

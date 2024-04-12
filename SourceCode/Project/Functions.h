@@ -3,7 +3,7 @@
 #define SENECA_DELIVERY_H
 
 #include "mapping.h"
-#define BUFFER 10
+#define BUFFER 20
 //header file for 6 function
 
 //Create function prototype getInput
