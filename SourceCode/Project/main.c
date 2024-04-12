@@ -29,6 +29,9 @@ int main(void)
 	routeMap = addRoute(&routeMap, &greenRoute);
 	routeMap = addRoute(&routeMap, &yellowRoute);
 	printMap(&routeMap, 1, 1);
+	printf("=================\n");
+	printf("Seneca College Deliveries\n");
+	printf("=================\n");
 
 	do {
 		flag = getInput(&routeMap, &currentPackage, NULL);
