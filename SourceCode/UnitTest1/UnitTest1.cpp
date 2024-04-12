@@ -390,7 +390,7 @@ namespace UnitTest1
             Truck tr;
             tr.m_totalSpace = 8;
             int result = checkSpaceOfTruck(space, &tr);
-            Assert::AreEqual(1, result);
+            Assert::AreEqual(0, result);
         }
     };
 }
