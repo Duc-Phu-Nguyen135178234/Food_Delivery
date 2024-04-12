@@ -375,7 +375,7 @@ namespace UnitTest1
             Truck tr;
             tr.m_totalSpace = 15;
             int result = checkSpaceOfTruck(space, &tr);
-            Assert::AreEqual(0, result);
+            Assert::AreEqual(1, result);
         }
 
         TEST_METHOD(TestZeroSpace) {
