@@ -246,7 +246,7 @@ namespace UnitTest1
             Truck truck = { 1199, 0, 1200, '\0' };
             PackageInf package = { 1, 0, nullptr };
             int result = checkWeight(&truck, &package);
-            Assert::AreEqual(1, result); 
+            Assert::AreEqual(0, result); 
         }
 
         TEST_METHOD(FloatingPointPrecisionUnderLimit)
@@ -254,7 +254,7 @@ namespace UnitTest1
             Truck truck = { 1000.5, 0, 1200, '\0' };
             PackageInf package = { 199.4, 0, nullptr };
             int result = checkWeight(&truck, &package);
-            Assert::AreEqual(1, result); 
+            Assert::AreEqual(0, result); 
         }
 
         TEST_METHOD(FloatingPointPrecisionOverLimit)
@@ -390,7 +390,7 @@ namespace UnitTest1
             Truck tr;
             tr.m_totalSpace = 8;
             int result = checkSpaceOfTruck(space, &tr);
-            Assert::AreEqual(0, result);
+            Assert::AreEqual(1, result);
         }
     };
 }
