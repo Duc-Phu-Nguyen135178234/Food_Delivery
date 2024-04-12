@@ -171,8 +171,7 @@ namespace UnitTest1
             Assert::IsFalse(valid);
         }
         TEST_METHOD(getInput_empty) {
-            char test[] = "\0";
-            int valid = getInput(&testMap, NULL, test);
+            int valid = getInput(&testMap, NULL, "\0");
             Assert::IsFalse(valid);
         }
         TEST_METHOD(getInput_Exit) {
